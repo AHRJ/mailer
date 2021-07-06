@@ -1,14 +1,10 @@
 import io
-import os
 import uuid
 from datetime import datetime
 
 import requests
-from django.core.files.base import ContentFile
 from django.core.files.images import ImageFile
 from django.db import models
-from django.db.models.signals import m2m_changed
-from django.dispatch import receiver
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
@@ -67,12 +63,6 @@ class Letter(TimeStampedModel):
 
     def __str__(self):
         return " • ".join([self.title, str(self.pk)])
-
-    def save_related(self, *args, **kwargs):
-        super().save_related(*args, **kwargs)
-        l = Letter.objects.get(pk=self.pk)
-        for n in l.news_long.all():
-            n.load_img_from_url()
 
     @property
     def news_long_sorted(self):
