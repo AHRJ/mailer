@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=zzr_mailer
+POSTGRES_USER=tdiZdVFeFrIYyEXcVgjxakAQOwpqoEkf
+POSTGRES_PASSWORD=98hj7RRXrhQ1We1GcQTHWmtv41HO3QBJvoUEsbOzAu0LzMC57xW5D8e2p7Gzag9y
