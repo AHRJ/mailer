@@ -31,7 +31,7 @@ class LetterAdmin(admin.ModelAdmin):
     list_display = ("title", "id", "pub_date", "link_to_detail_view")
 
     def link_to_detail_view(self, obj):
-        url = reverse("news:detail", args=[obj.id])
+        url = reverse("news_digest:detail", args=[obj.id])
         return format_html(f"<a href='{url}' target='_blank'>Просмотр</a>")
 
     def save_related(self, request, form, formsets, change):
