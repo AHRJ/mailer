@@ -276,5 +276,6 @@ zzr_mailer/media/
 
 
 .env
+.envrc
 .envs/*
 !.envs/.local/
