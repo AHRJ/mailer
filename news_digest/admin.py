@@ -8,6 +8,7 @@ from .models import Advertisement, Letter, News
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
+    list_display = ("pub_date", "title")
     exclude = ("uuid", "image_url")
     ordering = ("-pub_date",)
 
