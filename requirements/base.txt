@@ -14,3 +14,4 @@ django-allauth==0.44.0  # https://github.com/pennersr/django-allauth
 django-crispy-forms==1.12.0  # https://github.com/django-crispy-forms/django-crispy-forms
 django-redis==5.0.0  # https://github.com/jazzband/django-redis
 django-admin-sortable2==1.0 # https://github.com/jrief/django-admin-sortable2
+django-cleanup==5.2.0 # https://github.com/un1t/django-cleanup
