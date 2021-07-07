@@ -15,12 +15,12 @@ class NewsAdmin(admin.ModelAdmin):
 
 class LetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Letter.news_long.through
-    extra = 1
+    extra = 8
 
 
 class LetterNewsShortInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Letter.news_short.through
-    extra = 1
+    extra = 10
 
 
 @admin.register(Advertisement)
