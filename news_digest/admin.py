@@ -28,7 +28,7 @@ class LetterAdmin(admin.ModelAdmin):
         LetterNewsLongInline,
         LetterNewsShortInline,
     )
-    list_display = ("title", "id", "pub_date", "link_to_detail_view")
+    list_display = ("title", "id", "send_date", "link_to_detail_view")
 
     def link_to_detail_view(self, obj):
         url = reverse("news_digest:detail", args=[obj.id])

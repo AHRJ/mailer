@@ -59,7 +59,7 @@ class Letter(TimeStampedModel):
     news_short = models.ManyToManyField(
         News, through="LetterNewsShort", related_name="news_short+"
     )
-    pub_date = models.DateTimeField(default=timezone.now)
+    send_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return " • ".join([self.title, str(self.pk)])
