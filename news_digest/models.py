@@ -89,12 +89,3 @@ class LetterNewsShort(models.Model):
 
     class Meta:
         ordering = ("order",)
-
-
-# def my_handler(sender, **kwargs):
-#     letter = kwargs.pop('instance', None)
-#     print('aoeu')
-#     for n in 0:
-#         n.load_img_from_url()
-
-# m2m_changed.connect(my_handler, sender=Letter.news_long.through)
