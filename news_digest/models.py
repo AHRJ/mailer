@@ -19,7 +19,11 @@ class News(TimeStampedModel):
     pub_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return " ".join([str(self.pub_date.date()), self.title])
+        date = str(self.pub_date.date())
+        short_title = (
+            "".join([self.title[:75], "..."]) if len(self.title) > 75 else self.title
+        )
+        return " ".join([date, short_title])
 
     def load_img_from_url(self):
         if self.image_url and not self.image:
