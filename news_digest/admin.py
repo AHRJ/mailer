@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from .models import Letter, News
+from .models import Advertisement, Letter, News
 
 
 @admin.register(News)
@@ -20,6 +20,11 @@ class LetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInline):
 class LetterNewsShortInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Letter.news_short.through
     extra = 1
+
+
+@admin.register(Advertisement)
+class AdvertisementAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Letter)

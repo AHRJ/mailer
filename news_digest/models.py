@@ -50,6 +50,14 @@ class News(TimeStampedModel):
         return request.status_code
 
 
+class Advertisement(models.Model):
+    title = models.CharField(max_length=255, default="Рекламный блок")
+    body = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+
 class Letter(TimeStampedModel):
     title = models.CharField(max_length=255, default="🐄 Новости животноводства")
     subtitle = models.CharField(max_length=255, default="Актуальные новости отрасли")
@@ -58,6 +66,9 @@ class Letter(TimeStampedModel):
     )
     news_short = models.ManyToManyField(
         News, through="LetterNewsShort", related_name="news_short+"
+    )
+    advertisement = models.ForeignKey(
+        Advertisement, on_delete=models.CASCADE, blank=True, null=True
     )
     send_date = models.DateTimeField(default=timezone.now)
 
