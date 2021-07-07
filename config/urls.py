@@ -4,8 +4,11 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 
+from news_digest.views import LetterListView
+
 urlpatterns = [
-    path("", include("news_digest.urls", namespace="news_digest")),
+    path("", view=LetterListView.as_view(), name="front"),
+    path("news-digest/", include("news_digest.urls", namespace="news_digest")),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
