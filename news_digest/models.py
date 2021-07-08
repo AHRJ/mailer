@@ -71,8 +71,12 @@ class Advertisement(models.Model):
 
 
 class Letter(TimeStampedModel):
-    title = models.CharField(max_length=255, default="🐄 Новости животноводства")
-    subtitle = models.CharField(max_length=255, default="Актуальные новости отрасли")
+    title = models.CharField(
+        "Тема письма", max_length=255, default="🐄 Новости животноводства"
+    )
+    subtitle = models.CharField(
+        "Заголовок письма", max_length=255, default="Актуальные новости отрасли"
+    )
     news_long = models.ManyToManyField(
         News, through="LetterNewsLong", related_name="news_long+"
     )
@@ -80,7 +84,11 @@ class Letter(TimeStampedModel):
         News, through="LetterNewsShort", related_name="news_short+"
     )
     advertisement = models.ForeignKey(
-        Advertisement, on_delete=models.CASCADE, blank=True, null=True
+        Advertisement,
+        verbose_name="Рекламный блок",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     send_date = models.DateTimeField(default=timezone.now)
 
