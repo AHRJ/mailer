@@ -34,6 +34,10 @@ class News(TimeStampedModel):
             self.image = image_content
             self.save()
 
+    class Meta:
+        verbose_name = "Новость"
+        verbose_name_plural = "Новости"
+
     @staticmethod
     def load_from_zzr():
         request = requests.get("https://zzr.ru/api/v1/news", timeout=1)
@@ -61,6 +65,10 @@ class Advertisement(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Рекламный блок"
+        verbose_name_plural = "Рекламные блоки"
+
 
 class Letter(TimeStampedModel):
     title = models.CharField(max_length=255, default="🐄 Новости животноводства")
@@ -86,6 +94,10 @@ class Letter(TimeStampedModel):
     @property
     def news_short_sorted(self):
         return self.news_short.order_by("letternewsshort__order")
+
+    class Meta:
+        verbose_name = "Рассылочное письмо"
+        verbose_name_plural = "Рассылочные письма"
 
 
 class LetterNewsLong(models.Model):
