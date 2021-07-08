@@ -40,6 +40,14 @@ class LetterAdmin(admin.ModelAdmin):
         url = reverse("news_digest:detail", args=[obj.id])
         return format_html(f"<a href='{url}' target='_blank'>Просмотр</a>")
 
+    def add_view(self, request, form_url="", extra_context=None):
+        News.load_from_zzr()
+        return super().add_view(request, form_url, extra_context)
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        News.load_from_zzr()
+        return super().change_view(request, object_id, form_url, extra_context)
+
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
         for n in form.instance.news_long.all():
