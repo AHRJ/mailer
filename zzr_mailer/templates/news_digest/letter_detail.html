@@ -193,11 +193,12 @@
                         <tbody><tr style="border-collapse:collapse">
                           <td style="padding:0;Margin:0;width:550px" valign="top" align="center">
                             <table role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px" width="100%" cellspacing="0" cellpadding="0">
-                              <tbody><tr style="border-collapse:collapse">
+                              <tbody>
 
 
 
                   {% for news_short in letter.news_short_sorted %}
+                  <tr style="border-collapse:collapse">
                                 <td style="padding:0;Margin:0;padding-bottom:15px" align="left">
                                   <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:georgia, times, 'times new roman', serif;line-height:17px;color:#333333;font-size:14px"> <b>• </b><a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:14px" href="{{ news_short.link }}">{{ news_short.title }}</a> </p>
                                 </td>
@@ -268,7 +269,7 @@
                               <tbody><tr style="border-collapse:collapse">
                                 <td style="padding:0;Margin:0" align="center">
                                   <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:10px;color:#999999;font-size:10px"> Вы&nbsp;получили эту рассылку, т.к. являетесь подписчиком&nbsp;ИД&nbsp;«Животноводство», </p>
-                                  <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:10px;color:#999999;font-size:10px"> либо контактировали с&nbsp;ИД в&nbsp;рамках профильной конференции<br><br>{{unsubscribe_url}}<br></p>
+                                  <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:tahoma, verdana, segoe, sans-serif;line-height:10px;color:#999999;font-size:10px"> либо контактировали с&nbsp;ИД в&nbsp;рамках профильной конференции<br><br><br>{% verbatim %} {{unsubscribe_url}} {% endverbatim %}</p>
                                 </td>
                               </tr>
                             </tbody></table>
