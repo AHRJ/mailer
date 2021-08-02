@@ -270,5 +270,9 @@ ACCOUNT_ADAPTER = "zzr_mailer.users.adapters.AccountAdapter"
 SOCIALACCOUNT_ADAPTER = "zzr_mailer.users.adapters.SocialAccountAdapter"
 
 
-# Your stuff...
+# Sendpulse
 # ------------------------------------------------------------------------------
+SENDPULSE_REST_API_ID = env.str("DJANGO_SENDPULSE_REST_API_ID")
+SENDPULSE_REST_API_SECRET = env.str("DJANGO_SENDPULSE_REST_API_SECRET")
+SENDPULSE_TOKEN_STORAGE = "memcached"
+SENDPULSE_MEMCACHED_HOST = "127.0.0.1:11211"
