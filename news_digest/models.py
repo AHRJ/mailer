@@ -3,6 +3,7 @@ import uuid
 from datetime import datetime
 
 import requests
+from django.core.exceptions import ValidationError
 from django.core.files.images import ImageFile
 from django.db import models
 from django.utils import timezone
@@ -70,6 +71,22 @@ class Advertisement(models.Model):
         verbose_name_plural = "Рекламные блоки"
 
 
+class AddressBook(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    name = models.CharField(max_length=255, default="Адресная книга")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Адресная книга"
+        verbose_name_plural = "Адресные книги"
+
+
+class Campaign(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+
+
 class Letter(TimeStampedModel):
     title = models.CharField(
         "Тема письма", max_length=255, default="🐄 Новости животноводства"
@@ -90,10 +107,16 @@ class Letter(TimeStampedModel):
         blank=True,
         null=True,
     )
+    campaigns = models.ManyToManyField(Campaign, blank=True, null=True)
+    addressbooks = models.ManyToManyField(AddressBook, blank=True, null=True)
     send_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return " • ".join([self.title, str(self.pk)])
+
+    def clean(self):
+        if self.send_date < timezone.now():
+            raise ValidationError("Дата отправки не может быть меньше текущей")
 
     @property
     def news_long_sorted(self):
