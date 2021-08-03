@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
-from utils.sendpulse import SPSender, SPSenderError
+
+from zzr_mailer.utils.sendpulse import SPSender, SPSenderError
 
 from .models import Campaign, Letter
 
