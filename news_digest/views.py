@@ -52,14 +52,6 @@ class LetterCreateCampaignView(DetailView):
                 f"Рассылку не удалось запланировать. {error.message}",
             )
 
-        # response = SPSender.add_campaign(
-        #     from_email="info@zzr.ru",
-        #     from_name="ИД Животноводство",
-        #     subject=letter_title,
-        #     body=letter_body,
-        #     send_date=letter_send_date,
-        #     addressbook_id=1280042,
-        # )
         return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))
 
 
