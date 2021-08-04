@@ -108,7 +108,9 @@ class Letter(TimeStampedModel):
         null=True,
     )
     campaigns = models.ManyToManyField(Campaign, blank=True, null=True)
-    addressbooks = models.ManyToManyField(AddressBook, blank=True, null=True)
+    addressbooks = models.ManyToManyField(
+        AddressBook, blank=True, null=True, default=AddressBook.objects.all
+    )
     send_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
