@@ -47,7 +47,7 @@ class LetterAdmin(admin.ModelAdmin):
         "link_to_detail_view",
         "create_campaign",
     )
-    # exclude = ("campaigns",)
+    exclude = ("campaigns",)
 
     def link_to_detail_view(self, obj):
         url = reverse("news_digest:detail", args=[obj.id])
