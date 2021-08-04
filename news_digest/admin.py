@@ -49,6 +49,14 @@ class LetterAdmin(admin.ModelAdmin):
     )
     exclude = ("campaigns",)
 
+    fields = (
+        "title",
+        "subtitle",
+        "advertisement",
+        "send_date",
+        "addressbooks",
+    )
+
     def link_to_detail_view(self, obj):
         url = reverse("news_digest:detail", args=[obj.id])
         return format_html(f"<a href='{url}'>Просмотр</a>")
