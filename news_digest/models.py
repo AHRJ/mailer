@@ -9,7 +9,7 @@ from django.db import models
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
-from .utils import trim
+from .utils import next_monday, trim
 
 
 class News(TimeStampedModel):
@@ -111,7 +111,7 @@ class Letter(TimeStampedModel):
     addressbooks = models.ManyToManyField(
         AddressBook, blank=True, null=True, default=AddressBook.objects.all
     )
-    send_date = models.DateTimeField(default=timezone.now)
+    send_date = models.DateTimeField(default=next_monday)
 
     def __str__(self):
         return " • ".join([self.title, str(self.pk)])
