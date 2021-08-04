@@ -9,6 +9,8 @@ from django.db import models
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
+from .utils import trim
+
 
 class News(TimeStampedModel):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4)
@@ -21,9 +23,7 @@ class News(TimeStampedModel):
 
     def __str__(self):
         date = str(self.pub_date.date())
-        short_title = (
-            "".join([self.title[:75], "..."]) if len(self.title) > 75 else self.title
-        )
+        short_title = trim(self.title)
         return " ".join([date, short_title])
 
     def load_img_from_url(self):
