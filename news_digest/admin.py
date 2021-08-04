@@ -1,6 +1,7 @@
 from adminsortable2.admin import SortableInlineAdminMixin
 from django.contrib import admin
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.html import format_html
 
 from .models import AddressBook, Advertisement, Letter, News
@@ -46,19 +47,22 @@ class LetterAdmin(admin.ModelAdmin):
         "link_to_detail_view",
         "create_campaign",
     )
-    exclude = ("campaigns",)
+    # exclude = ("campaigns",)
 
     def link_to_detail_view(self, obj):
         url = reverse("news_digest:detail", args=[obj.id])
         return format_html(f"<a href='{url}'>Просмотр</a>")
 
     def create_campaign(self, obj):
-        if not obj.campaigns.exists():
-            url = reverse("news_digest:create_campaign", args=[obj.id])
-            text = "Запланировать рассылку"
-        else:
+        if obj.send_date < timezone.now():
+            url = "#"
+            text = ""
+        elif obj.campaigns.exists():
             url = reverse("news_digest:cancel_campaign", args=[obj.id])
             text = "Отменить рассылку"
+        else:
+            url = reverse("news_digest:create_campaign", args=[obj.id])
+            text = "Запланировать рассылку"
         return format_html(f"<a href='{url}'>{text}</a>")
 
     def add_view(self, request, form_url="", extra_context=None):
