@@ -109,9 +109,13 @@ class Letter(TimeStampedModel):
     )
     campaigns = models.ManyToManyField(Campaign, blank=True, null=True)
     addressbooks = models.ManyToManyField(
-        AddressBook, blank=True, null=True, default=AddressBook.objects.all
+        AddressBook,
+        blank=True,
+        null=True,
+        default=AddressBook.objects.all,
+        verbose_name="Адресные книги",
     )
-    send_date = models.DateTimeField(default=next_monday)
+    send_date = models.DateTimeField(default=next_monday, verbose_name="Дата отправки")
 
     def __str__(self):
         return " • ".join([self.title, str(self.pk)])
@@ -140,6 +144,8 @@ class LetterNewsLong(models.Model):
 
     class Meta:
         ordering = ("order",)
+        verbose_name = "Новость с анонсом"
+        verbose_name_plural = "Новости с анонсом"
 
 
 class LetterNewsShort(models.Model):
@@ -149,3 +155,5 @@ class LetterNewsShort(models.Model):
 
     class Meta:
         ordering = ("order",)
+        verbose_name = "Новость 'Одной строкой'"
+        verbose_name_plural = "Новости 'Одной строкой'"
