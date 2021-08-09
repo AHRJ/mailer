@@ -47,7 +47,6 @@ class LetterAdmin(admin.ModelAdmin):
         "link_to_detail_view",
         "create_campaign",
     )
-    exclude = ("campaigns",)
 
     fields = (
         "title",
@@ -62,7 +61,7 @@ class LetterAdmin(admin.ModelAdmin):
         return format_html(f"<a href='{url}'>Просмотр</a>")
 
     def create_campaign(self, obj):
-        if obj.send_date < timezone.now():
+        if obj.send_date < timezone.now() or obj.status == Letter.Status.PENDING:
             url = "#"
             text = ""
         elif obj.campaigns.exists():

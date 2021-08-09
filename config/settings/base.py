@@ -73,6 +73,7 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "adminsortable2",
     "django_cleanup.apps.CleanupConfig",
+    "django_q",
 ]
 
 LOCAL_APPS = [

@@ -88,6 +88,11 @@ class Campaign(models.Model):
 
 
 class Letter(TimeStampedModel):
+    class Status(models.TextChoices):
+        UNPLANNED = "UNP", "Unplanned"
+        PENDING = "PND", "Pending"
+        PLANNED = "PLA", "Planned"
+
     title = models.CharField(
         "Тема письма", max_length=255, default="🐄 Новости животноводства"
     )
@@ -116,6 +121,9 @@ class Letter(TimeStampedModel):
         verbose_name="Адресные книги",
     )
     send_date = models.DateTimeField(default=next_monday, verbose_name="Дата отправки")
+    status = models.CharField(
+        max_length=3, choices=Status.choices, default=Status.UNPLANNED
+    )
 
     def __str__(self):
         return " • ".join([self.title, str(self.pk)])

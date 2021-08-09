@@ -1,12 +1,21 @@
-from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
+from django_q.tasks import async_task
 
-from zzr_mailer.utils.sendpulse import SPSender, SPSenderError
+from zzr_mailer.utils.sendpulse import SPSender
 
 from .models import Campaign, Letter
+
+
+def assign_campaigns(task):
+    campaign_ids = task.result
+    letter = task.kwargs.get("letter")
+    campaigns = [Campaign.objects.create(id=id) for id in campaign_ids]
+    letter.campaigns.add(*campaigns)
+    letter.status = Letter.Status.PLANNED
+    letter.save()
 
 
 class LetterDetailView(DetailView):
@@ -30,28 +39,20 @@ class LetterCreateCampaignView(DetailView):
         )
         letter_send_date = self.object.send_date
         letter_addresbook_ids = [entry.id for entry in self.object.addressbooks.all()]
-        try:
-            campaign_ids = SPSender.add_campaigns(
-                from_email="info@zzr.ru",
-                from_name="ИД Животноводство",
-                subject=letter_title,
-                body=letter_body,
-                send_date=letter_send_date,
-                addressbook_ids=letter_addresbook_ids,
-            )
-            campaigns = [Campaign.objects.create(id=id) for id in campaign_ids]
-            self.object.campaigns.add(*campaigns)
-            self.object.save()
 
-            messages.success(
-                request,
-                f"Рассылка запланирована на {letter_send_date}",
-            )
-        except SPSenderError as error:
-            messages.error(
-                request,
-                f"Рассылку не удалось запланировать. {error.message}",
-            )
+        async_task(
+            SPSender.add_campaigns,
+            hook="news_digest.views.assign_campaigns",
+            from_email="info@zzr.ru",
+            from_name="ИД Животноводство",
+            subject=letter_title,
+            body=letter_body,
+            send_date=letter_send_date,
+            addressbook_ids=letter_addresbook_ids,
+            letter=self.object,
+        )
+        self.object.status = Letter.Status.PENDING
+        self.object.save()
 
         return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))
 
@@ -64,4 +65,5 @@ class LetterCancelCampaignView(DetailView):
         letter_campaign_ids = [entry.id for entry in self.object.campaigns.all()]
         SPSender.cancel_campaigns(letter_campaign_ids)
         self.object.campaigns.all().delete()
+        self.object.status = Letter.Status.UNPLANNED
         return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))

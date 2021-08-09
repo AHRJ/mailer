@@ -43,6 +43,7 @@ class PySendPulse:
     __storage_type = "FILE"
     __refresh_token = 0
     __memcached_host = "127.0.0.1:11211"
+    __name__ = "PySendPulse"
 
     MEMCACHED_VALUE_TIMEOUT = 3600
     ALLOWED_STORAGE_TYPES = ["FILE", "MEMCACHED"]
@@ -721,9 +722,11 @@ class PySendPulse:
         campaign_name="",
         send_date="",
         attachments=None,
+        **kwargs
     ):
         if not addressbook_ids:
             raise SPSenderError("No addressbooks")
+            return None
 
         campaign_ids = []
         for addressbook_id in addressbook_ids:
@@ -743,9 +746,10 @@ class PySendPulse:
             except KeyError:
                 self.cancel_campaigns(campaign_ids)
                 raise SPSenderError("Обратитесь к администратору")
+                return None
         return campaign_ids
 
-    def cancel_campaigns(self, ids):
+    def cancel_campaigns(self, ids, **kwargs):
         for id in ids:
             result = self.cancel_campaign(id)
             logger.info(result)
