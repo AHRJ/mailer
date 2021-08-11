@@ -66,4 +66,5 @@ class LetterCancelCampaignView(DetailView):
         SPSender.cancel_campaigns(letter_campaign_ids)
         self.object.campaigns.all().delete()
         self.object.status = Letter.Status.UNPLANNED
+        self.object.save()
         return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))

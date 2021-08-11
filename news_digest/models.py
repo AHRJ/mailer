@@ -89,9 +89,11 @@ class Campaign(models.Model):
 
 class Letter(TimeStampedModel):
     class Status(models.TextChoices):
-        UNPLANNED = "UNP", "Unplanned"
-        PENDING = "PND", "Pending"
-        PLANNED = "PLA", "Planned"
+        UNPLANNED = "UNP", "Не запланирована"
+        PENDING = "PND", "Обработка..."
+        PLANNED = "PLA", "Запланирована"
+        SENT = "SNT", "Отправлена"
+        EXPIRED = "EXP", "Просрочена"
 
     title = models.CharField(
         "Тема письма", max_length=255, default="🐄 Новости животноводства"
@@ -122,7 +124,10 @@ class Letter(TimeStampedModel):
     )
     send_date = models.DateTimeField(default=next_monday, verbose_name="Дата отправки")
     status = models.CharField(
-        max_length=3, choices=Status.choices, default=Status.UNPLANNED
+        max_length=3,
+        choices=Status.choices,
+        default=Status.UNPLANNED,
+        verbose_name="Статус",
     )
 
     def __str__(self):
@@ -131,6 +136,18 @@ class Letter(TimeStampedModel):
     def clean(self):
         if self.send_date < timezone.now():
             raise ValidationError("Дата отправки не может быть меньше текущей")
+
+    def update_status(self):
+        if self.status == Letter.Status.PENDING:
+            pass
+        elif self.send_date > timezone.now() and not self.campaigns.exists():
+            self.status = Letter.Status.UNPLANNED
+        elif self.send_date > timezone.now() and self.campaigns.exists():
+            self.status = Letter.Status.PLANNED
+        elif self.send_date < timezone.now() and self.campaigns.exists():
+            self.status = Letter.Status.SENT
+        elif self.send_date < timezone.now() and not self.campaigns.exists():
+            self.status = Letter.Status.EXPIRED
 
     @property
     def news_long_sorted(self):
