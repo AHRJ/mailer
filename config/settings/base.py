@@ -282,4 +282,10 @@ SENDPULSE_MEMCACHED_HOST = "127.0.0.1:11211"
 
 # Django Q
 # ------------------------------------------------------------------------------
-Q_CLUSTER = {"name": "DJRedis", "workers": 4, "timeout": 90, "django_redis": "default"}
+Q_CLUSTER = {
+    "name": "DJRedis",
+    "workers": 4,
+    "timeout": 90,
+    "retry": 90,
+    "django_redis": "default",
+}
