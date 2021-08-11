@@ -114,11 +114,10 @@ class Letter(TimeStampedModel):
         blank=True,
         null=True,
     )
-    campaigns = models.ManyToManyField(Campaign, blank=True, null=True)
+    campaigns = models.ManyToManyField(Campaign, blank=True)
     addressbooks = models.ManyToManyField(
         AddressBook,
         blank=True,
-        null=True,
         default=AddressBook.objects.all,
         verbose_name="Адресные книги",
     )
