@@ -725,7 +725,7 @@ class PySendPulse:
         **kwargs
     ):
         if not addressbook_ids:
-            raise SPSenderError("No addressbooks")
+            # raise SPSenderError("No addressbooks")
             return None
 
         campaign_ids = []
@@ -740,13 +740,14 @@ class PySendPulse:
                 send_date=send_date,
                 attachments=attachments,
             )
+            logger.info(response)
             try:
                 campaign_id = response["id"]
-                campaign_ids.append(campaign_id)
             except KeyError:
                 self.cancel_campaigns(campaign_ids)
-                raise SPSenderError("Обратитесь к администратору")
+                # raise SPSenderError("Обратитесь к администратору")
                 return None
+            campaign_ids.append(campaign_id)
         return campaign_ids
 
     def cancel_campaigns(self, ids, **kwargs):
