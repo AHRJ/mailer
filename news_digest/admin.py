@@ -44,7 +44,7 @@ class LetterAdmin(admin.ModelAdmin):
         "title",
         "id",
         "send_date",
-        "link_to_detail_view",
+        "detail_view",
         "create_campaign",
     )
 
@@ -56,7 +56,7 @@ class LetterAdmin(admin.ModelAdmin):
         "addressbooks",
     )
 
-    def link_to_detail_view(self, obj):
+    def detail_view(self, obj):
         url = reverse("news_digest:detail", args=[obj.id])
         return format_html(f"<a href='{url}'>Просмотр</a>")
 
