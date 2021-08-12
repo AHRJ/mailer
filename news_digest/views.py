@@ -9,15 +9,6 @@ from zzr_mailer.utils.sendpulse import SPSender
 from .models import Campaign, Letter
 
 
-def assign_campaigns(task):
-    campaign_ids = task.result
-    letter = task.kwargs.get("letter")
-    campaigns = [Campaign.objects.create(id=id) for id in campaign_ids]
-    letter.campaigns.add(*campaigns)
-    letter.status = Letter.Status.PLANNED
-    letter.save()
-
-
 class LetterDetailView(DetailView):
     model = Letter
 
@@ -28,6 +19,19 @@ class LetterListView(ListView):
 
 class LetterCreateCampaignView(DetailView):
     model = Letter
+
+    def assign_campaigns(task):
+        campaign_ids = task.result
+        letter = task.kwargs.get("letter")
+        try:
+            campaigns = [Campaign.objects.create(id=id) for id in campaign_ids]
+            letter.campaigns.add(*campaigns)
+            status = Letter.Status.PLANNED
+        except:  # noqa
+            status = Letter.Status.ERROR
+        finally:
+            letter.status = status
+            letter.save()
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -42,7 +46,7 @@ class LetterCreateCampaignView(DetailView):
 
         async_task(
             SPSender.add_campaigns,
-            hook="news_digest.views.assign_campaigns",
+            hook=LetterCreateCampaignView.assign_campaigns,
             from_email="info@zzr.ru",
             from_name="ИД Животноводство",
             subject=letter_title,
