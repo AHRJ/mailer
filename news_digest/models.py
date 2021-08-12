@@ -3,6 +3,8 @@ import uuid
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 from model_utils.models import TimeStampedModel
 
 from .utils import get_img_from_url, next_monday, trim
@@ -13,7 +15,12 @@ class News(TimeStampedModel):
     title = models.CharField(max_length=255)
     teaser = models.TextField()
     link = models.URLField()
-    image = models.ImageField(upload_to="img/news/thumbnails", blank=True)
+    image = ProcessedImageField(
+        upload_to="img/news/thumbnails",
+        processors=[ResizeToFill(300, 180)],
+        format="JPEG",
+        options={"quality": 90},
+    )
     image_url = models.URLField(blank=True, null=True)
     pub_date = models.DateTimeField(default=timezone.now)
 

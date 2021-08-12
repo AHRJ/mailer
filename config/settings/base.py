@@ -74,6 +74,7 @@ THIRD_PARTY_APPS = [
     "adminsortable2",
     "django_cleanup.apps.CleanupConfig",
     "django_q",
+    "imagekit",
 ]
 
 LOCAL_APPS = [
