@@ -1,15 +1,11 @@
-import io
 import uuid
-from datetime import datetime
 
-import requests
 from django.core.exceptions import ValidationError
-from django.core.files.images import ImageFile
 from django.db import models
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
-from .utils import next_monday, trim
+from .utils import get_img_from_url, next_monday, trim
 
 
 class News(TimeStampedModel):
@@ -26,13 +22,10 @@ class News(TimeStampedModel):
         short_title = trim(self.title)
         return " ".join([date, short_title])
 
-    def load_img_from_url(self):
+    def fill_img_from_url(self):
         if self.image_url and not self.image:
             filename = "".join(["image_", str(self.uuid), ".jpg"])
-            image_content = ImageFile(
-                io.BytesIO(requests.get(self.image_url).content), name=filename
-            )
-            self.image = image_content
+            self.image = get_img_from_url(self.image_url, filename)
             self.save()
 
     class Meta:
@@ -40,23 +33,8 @@ class News(TimeStampedModel):
         verbose_name_plural = "Новости"
 
     @staticmethod
-    def load_from_zzr():
-        request = requests.get("https://zzr.ru/api/v1/news", timeout=1)
-        news_from_zzr = request.json()
-        news_to_add = [
-            News(
-                uuid=entry["uuid"],
-                title=entry["title"],
-                teaser=entry["teaser"],
-                link="".join(["https://zzr.ru", entry["link"]]),
-                image_url="".join(["https://zzr.ru", entry["image"]]),
-                pub_date=datetime.strptime(entry["pub_date"], "%Y-%m-%d"),
-            )
-            for entry in news_from_zzr
-        ]
-
-        News.objects.bulk_create(news_to_add, ignore_conflicts=True)
-        return request.status_code
+    def load_from(source):
+        News.objects.bulk_create(source.get_news(), ignore_conflicts=True)
 
 
 class Advertisement(models.Model):
