@@ -10,6 +10,10 @@ from .campaign import Campaign
 from .news import News
 
 
+def get_all_addressbooks():
+    return AddressBook.objects.all()
+
+
 class Letter(TimeStampedModel):
     class Status(models.TextChoices):
         UNPLANNED = "UNP", "Не запланирована"
@@ -42,7 +46,7 @@ class Letter(TimeStampedModel):
     addressbooks = models.ManyToManyField(
         AddressBook,
         blank=True,
-        default=AddressBook.objects.all,
+        default=get_all_addressbooks,
         verbose_name="Адресные книги",
     )
     send_date = models.DateTimeField(default=next_monday, verbose_name="Дата отправки")
