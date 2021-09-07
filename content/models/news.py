@@ -6,7 +6,7 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from model_utils.models import TimeStampedModel
 
-from ..utils import get_img_from_url, trim
+from news_digest.utils import get_img_from_url, trim
 
 
 class News(TimeStampedModel):

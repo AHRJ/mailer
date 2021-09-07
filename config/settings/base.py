@@ -79,6 +79,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "zzr_mailer.users.apps.UsersConfig",
+    "content",
     "news_digest",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

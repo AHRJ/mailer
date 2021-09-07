@@ -4,15 +4,10 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django_q.tasks import async_iter
 
-from .models import AddressBook, Advertisement, Letter, News
-from .news_sources import Zzr
+from content.models import News
+from content.news_sources import Zzr
 
-
-@admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
-    list_display = ("pub_date", "title")
-    exclude = ("uuid", "image_url")
-    ordering = ("-pub_date",)
+from .models import AddressBook, Advertisement, Letter
 
 
 class LetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInline):
