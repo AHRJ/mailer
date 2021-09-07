@@ -3,11 +3,12 @@ from django.db import models
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
+from content.models.news import News
+
 from ..utils import next_monday
 from .addressbook import AddressBook
 from .advertisement import Advertisement
 from .campaign import Campaign
-from .news import News
 
 
 def get_all_addressbooks():
