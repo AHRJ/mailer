@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from datetime import datetime
 
 import requests
@@ -5,10 +6,8 @@ import requests
 from .models import News
 
 
+@dataclass
 class Zzr:
-    def __init__(self):
-        pass
-
     @staticmethod
     def get_news():
         try:
