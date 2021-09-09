@@ -19,8 +19,8 @@ class Zzr:
                     uuid=entry["uuid"],
                     title=entry["title"],
                     teaser=entry["teaser"],
-                    link="".join(["https://zzr.ru", entry["link"]]),
-                    image_url="".join(["https://zzr.ru", entry["image"]]),
+                    link=entry["link"],
+                    image_url=entry["image"],
                     pub_date=datetime.strptime(entry["pub_date"], "%Y-%m-%d"),
                 )
                 for entry in news_from_zzr
