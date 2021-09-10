@@ -8,10 +8,13 @@ from .models import News
 
 @dataclass
 class Zzr:
-    @staticmethod
-    def get_news():
+    BASE_URL = "https://zzr.ru/api/v1"
+    NEWS_ENDPOINT = "".join([BASE_URL, "/news"])
+
+    @classmethod
+    def get_news(cls):
         try:
-            request = requests.get("https://zzr.ru/api/v1/news", timeout=1)
+            request = requests.get(cls.NEWS_ENDPOINT, timeout=1)
             news_from_zzr = request.json()
             news = [
                 News(
@@ -26,5 +29,6 @@ class Zzr:
             ]
         except:  # noqa
             news = []
+            raise
         finally:
             return news
