@@ -29,6 +29,5 @@ class Zzr:
             ]
         except:  # noqa
             news = []
-            raise
         finally:
             return news
