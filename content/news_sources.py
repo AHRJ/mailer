@@ -3,13 +3,14 @@ from datetime import datetime
 
 import requests
 
-from .models import News
+from .models import Article, News
 
 
 @dataclass
 class Zzr:
     BASE_URL = "https://zzr.ru/api/v1"
     NEWS_ENDPOINT = "".join([BASE_URL, "/news"])
+    ARTICLE_ENDPOINT = "".join([BASE_URL, "/article"])
 
     @classmethod
     def get_news(cls):
@@ -31,3 +32,29 @@ class Zzr:
             news = []
         finally:
             return news
+
+    @classmethod
+    def get_articles(cls):
+        try:
+            request = requests.get(cls.ARTICLE_ENDPOINT, timeout=1)
+            articles_from_zzr = request.json()
+            articles = [
+                Article(
+                    id=entry["id"],
+                    title=entry["title_ru"],
+                    authors=entry["authors_ru"],
+                    teaser=entry["summary_ru"],
+                    link=entry["link"],
+                    header_photo_url=entry["header_photo"],
+                    year=entry["year"],
+                    issue=entry["issue"],
+                    rubric=entry["rubric"],
+                    doi=entry["doi"],
+                    partner=entry["partner"],
+                )
+                for entry in articles_from_zzr
+            ]
+        except:  # noqa
+            articles = []
+        finally:
+            return articles
