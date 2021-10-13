@@ -46,7 +46,7 @@ class Zzr:
                     teaser=entry["summary_ru"],
                     link=entry["link"],
                     header_photo_url=entry["header_photo"],
-                    year=entry["year"],
+                    year=int(entry["year"]) if entry["year"] else None,
                     issue=entry["issue"],
                     rubric=entry["rubric"],
                     doi=entry["doi"],

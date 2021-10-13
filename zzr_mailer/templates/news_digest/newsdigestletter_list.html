@@ -1,0 +1,6 @@
+{% load static %}
+<ul>
+{% for newsdigestletter in newsdigestletter_list %}
+<li><a href="{% url 'news_digest:detail' newsdigestletter.pk %}">{{ newsdigestletter.send_date.date }} • {{ newsdigestletter.title }}</a></li>
+{% endfor %}
+</ul>

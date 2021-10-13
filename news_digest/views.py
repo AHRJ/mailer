@@ -4,21 +4,22 @@ from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django_q.tasks import async_task
 
+from letter.models import Campaign
 from zzr_mailer.utils.sendpulse import SPSender
 
-from .models import Campaign, Letter
+from .models import NewsDigestLetter
 
 
 class LetterDetailView(DetailView):
-    model = Letter
+    model = NewsDigestLetter
 
 
 class LetterListView(ListView):
-    model = Letter
+    model = NewsDigestLetter
 
 
 class LetterCreateCampaignView(DetailView):
-    model = Letter
+    model = NewsDigestLetter
 
     def assign_campaigns(task):
         campaign_ids = task.result
@@ -26,9 +27,9 @@ class LetterCreateCampaignView(DetailView):
         try:
             campaigns = [Campaign.objects.create(id=id) for id in campaign_ids]
             letter.campaigns.add(*campaigns)
-            status = Letter.Status.PLANNED
+            status = NewsDigestLetter.Status.PLANNED
         except:  # noqa
-            status = Letter.Status.ERROR
+            status = NewsDigestLetter.Status.ERROR
         finally:
             letter.status = status
             letter.save()
@@ -55,20 +56,20 @@ class LetterCreateCampaignView(DetailView):
             addressbook_ids=letter_addresbook_ids,
             letter=self.object,
         )
-        self.object.status = Letter.Status.PENDING
+        self.object.status = NewsDigestLetter.Status.PENDING
         self.object.save()
 
         return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))
 
 
 class LetterCancelCampaignView(DetailView):
-    model = Letter
+    model = NewsDigestLetter
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         letter_campaign_ids = [entry.id for entry in self.object.campaigns.all()]
         SPSender.cancel_campaigns(letter_campaign_ids)
         self.object.campaigns.all().delete()
-        self.object.status = Letter.Status.UNPLANNED
+        self.object.status = NewsDigestLetter.Status.UNPLANNED
         self.object.save()
         return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))
