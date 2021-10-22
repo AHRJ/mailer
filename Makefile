@@ -26,3 +26,7 @@ mg:
 # target: run - run server
 run:
 	python manage.py runserver 0.0.0.0:8000
+
+# target: q - run DjangoQ cluser
+q:
+	python manage.py qcluster
