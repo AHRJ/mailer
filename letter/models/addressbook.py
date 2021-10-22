@@ -6,7 +6,7 @@ from zzr_mailer.utils.sendpulse import SPSender
 class AddressBook(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=255, default="Адресная книга")
-    status = models.BooleanField(verbose_name="Активная", default=True)
+    is_active = models.BooleanField(verbose_name="Активная", default=True)
 
     def __str__(self):
         return self.name
