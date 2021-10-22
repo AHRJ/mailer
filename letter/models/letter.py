@@ -9,8 +9,8 @@ from .addressbook import AddressBook
 from .campaign import Campaign
 
 
-def get_all_addressbooks():
-    return AddressBook.objects.all()
+def get_active_addressbooks():
+    return AddressBook.objects.filter(is_active=True)
 
 
 class Letter(TimeStampedModel):
@@ -29,7 +29,7 @@ class Letter(TimeStampedModel):
     addressbooks = models.ManyToManyField(
         AddressBook,
         blank=True,
-        default=get_all_addressbooks,
+        default=get_active_addressbooks,
         verbose_name="Адресные книги",
     )
     send_date = models.DateTimeField(default=next_monday, verbose_name="Дата отправки")

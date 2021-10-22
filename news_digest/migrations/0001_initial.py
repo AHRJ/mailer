@@ -64,7 +64,7 @@ class Migration(migrations.Migration):
                 ('send_date', models.DateTimeField(default=news_digest.utils.next_monday, verbose_name='Дата отправки')),
                 ('status', models.CharField(choices=[('UNP', 'Не запланирована'), ('PND', 'Обработка...'), ('PLA', 'Запланирована'), ('SNT', 'Отправлена'), ('EXP', 'Просрочена'), ('ERR', 'Ошибка')], default='UNP', max_length=3, verbose_name='Статус')),
                 ('subtitle', models.CharField(default='Актуальные новости отрасли', max_length=255, verbose_name='Заголовок письма')),
-                ('addressbooks', models.ManyToManyField(blank=True, default=letter.models.letter.get_all_addressbooks, to='letter.AddressBook', verbose_name='Адресные книги')),
+                ('addressbooks', models.ManyToManyField(blank=True, default=letter.models.letter.get_active_addressbooks, to='letter.AddressBook', verbose_name='Адресные книги')),
                 ('advertisement', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='news_digest.advertisement', verbose_name='Рекламный блок')),
                 ('campaigns', models.ManyToManyField(blank=True, to='letter.Campaign')),
                 ('news_long', models.ManyToManyField(related_name='_newsdigestletter_news_long_+', through='news_digest.LetterNewsLong', to='content.News')),
