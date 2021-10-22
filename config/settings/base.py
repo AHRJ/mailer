@@ -75,6 +75,7 @@ THIRD_PARTY_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "django_q",
     "imagekit",
+    "django_object_actions",
 ]
 
 LOCAL_APPS = [

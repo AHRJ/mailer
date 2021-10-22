@@ -6,7 +6,6 @@ from django_q.tasks import async_iter
 
 from content.models import News
 from content.news_sources import Zzr
-from letter.models import AddressBook
 
 from .models import Advertisement, NewsDigestLetter
 
@@ -23,11 +22,6 @@ class NewsDigestLetterNewsShortInline(SortableInlineAdminMixin, admin.TabularInl
 
 @admin.register(Advertisement)
 class AdvertisementAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(AddressBook)
-class AddressBookAdmin(admin.ModelAdmin):
     pass
 
 
