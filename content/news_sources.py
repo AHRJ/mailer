@@ -3,7 +3,7 @@ from datetime import datetime
 
 import requests
 
-from .models import Article, News
+from .models import Article, Journal, News
 
 
 @dataclass
@@ -11,6 +11,7 @@ class Zzr:
     BASE_URL = "https://zzr.ru/api/v1"
     NEWS_ENDPOINT = "".join([BASE_URL, "/news"])
     ARTICLE_ENDPOINT = "".join([BASE_URL, "/article"])
+    JOURNAL_ENDPOINT = "".join([BASE_URL, "/journal"])
 
     @classmethod
     def get_news(cls):
@@ -58,3 +59,23 @@ class Zzr:
             articles = []
         finally:
             return articles
+
+    @classmethod
+    def get_journals(cls):
+        try:
+            request = requests.get(cls.JOURNAL_ENDPOINT, timeout=1)
+            journals_from_zzr = request.json()
+            journals = [
+                Journal(
+                    id=entry["id"],
+                    link=entry["link"],
+                    cover_url=entry["cover"],
+                    year=int(entry["year"]) if entry["year"] else None,
+                    issue=entry["issue"],
+                )
+                for entry in journals_from_zzr
+            ]
+        except:  # noqa
+            journals = []
+        finally:
+            return journals
