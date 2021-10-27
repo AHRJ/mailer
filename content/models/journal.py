@@ -12,7 +12,7 @@ class Journal(models.Model):
     link = models.URLField()
     cover = ProcessedImageField(
         upload_to="img/journal/thumbnails",
-        processors=[ResizeToFill(600, 360)],
+        processors=[ResizeToFill(320, 442)],
         format="JPEG",
         options={"quality": 90},
     )
@@ -26,7 +26,7 @@ class Journal(models.Model):
         return " ".join(["Животноводство России - ", self.issue, str(self.year)])
 
     def fill_cover_from_url(self):
-        if self.cover and not self.cover_url:
+        if self.cover_url and not self.cover:
             filename = "".join([str(self.id), ".jpg"])
             self.cover = get_img_from_url(self.cover_url, filename)
             self.save()
@@ -34,3 +34,4 @@ class Journal(models.Model):
     @staticmethod
     def load_from(source):
         Journal.objects.bulk_create(source.get_journals(), ignore_conflicts=True)
+        [journal.fill_cover_from_url() for journal in Journal.objects.all()]
