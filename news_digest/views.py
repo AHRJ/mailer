@@ -10,15 +10,15 @@ from zzr_mailer.utils.sendpulse import SPSender
 from .models import NewsDigestLetter
 
 
-class LetterDetailView(DetailView):
+class NewsDigestLetterDetailView(DetailView):
     model = NewsDigestLetter
 
 
-class LetterListView(ListView):
+class NewsDigestLetterListView(ListView):
     model = NewsDigestLetter
 
 
-class LetterCreateCampaignView(DetailView):
+class NewsDigestLetterCreateCampaignView(DetailView):
     model = NewsDigestLetter
 
     def assign_campaigns(task):
@@ -40,14 +40,14 @@ class LetterCreateCampaignView(DetailView):
 
         letter_title = self.object.title
         letter_body = render_to_string(
-            r"news_digest/letter_detail.html", context=context
+            r"news_digest/newsdigestletter_detail.html", context=context
         )
         letter_send_date = self.object.send_date
         letter_addresbook_ids = [entry.id for entry in self.object.addressbooks.all()]
 
         async_task(
             SPSender.add_campaigns,
-            hook=LetterCreateCampaignView.assign_campaigns,
+            hook=NewsDigestLetterCreateCampaignView.assign_campaigns,
             from_email="info@zzr.ru",
             from_name="ИД Животноводство",
             subject=letter_title,
@@ -59,10 +59,12 @@ class LetterCreateCampaignView(DetailView):
         self.object.status = NewsDigestLetter.Status.PENDING
         self.object.save()
 
-        return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))
+        return HttpResponseRedirect(
+            reverse("admin:news_digest_newsdigestletter_changelist")
+        )
 
 
-class LetterCancelCampaignView(DetailView):
+class NewsDigestLetterCancelCampaignView(DetailView):
     model = NewsDigestLetter
 
     def get(self, request, *args, **kwargs):
@@ -72,4 +74,6 @@ class LetterCancelCampaignView(DetailView):
         self.object.campaigns.all().delete()
         self.object.status = NewsDigestLetter.Status.UNPLANNED
         self.object.save()
-        return HttpResponseRedirect(reverse("admin:news_digest_letter_changelist"))
+        return HttpResponseRedirect(
+            reverse("admin:news_digest_newsdigestletter_changelist")
+        )
