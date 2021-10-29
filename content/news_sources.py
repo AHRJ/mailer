@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 
 import requests
+from django.utils.dateparse import parse_date
 
 from .models import Article, Journal, News
 
@@ -52,6 +53,7 @@ class Zzr:
                     rubric=entry["rubric"],
                     doi=entry["doi"],
                     partner=entry["partner"],
+                    created=parse_date(entry["created"]),
                 )
                 for entry in articles_from_zzr
             ]
@@ -72,6 +74,7 @@ class Zzr:
                     cover_url=entry["cover"],
                     year=int(entry["year"]) if entry["year"] else None,
                     issue=entry["issue"],
+                    created=parse_date(entry["created"]),
                 )
                 for entry in journals_from_zzr
             ]
