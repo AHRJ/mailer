@@ -7,7 +7,7 @@ from django_q.tasks import async_iter
 from content.models import News
 from content.news_sources import Zzr
 
-from .models import Advertisement, NewsDigestLetter
+from .models import NewsDigestLetter
 
 
 class NewsDigestLetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInline):
@@ -18,11 +18,6 @@ class NewsDigestLetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInli
 class NewsDigestLetterNewsShortInline(SortableInlineAdminMixin, admin.TabularInline):
     model = NewsDigestLetter.news_short.through
     extra = 10
-
-
-@admin.register(Advertisement)
-class AdvertisementAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(NewsDigestLetter)

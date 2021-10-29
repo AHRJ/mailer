@@ -1,9 +1,7 @@
 from django.db import models
 
-from content.models import News
+from content.models import Advertisement, News
 from letter.models import Letter
-
-from .advertisement import Advertisement
 
 
 class NewsDigestLetter(Letter):

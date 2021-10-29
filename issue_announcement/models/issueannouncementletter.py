@@ -1,9 +1,7 @@
 from django.db import models
 
-from content.models import Article, Journal
+from content.models import Advertisement, Article, Journal
 from letter.models import Letter
-
-from .advertisement import Advertisement
 
 
 class IssueAnnouncementLetter(Letter):
