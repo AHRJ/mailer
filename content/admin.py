@@ -13,9 +13,9 @@ class NewsAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ("id", "title")
-    ordering = ("-id",)
+    ordering = ("-created",)
 
 
 @admin.register(Journal)
 class JournalAdmin(admin.ModelAdmin):
-    ordering = ("-id",)
+    ordering = ("-created",)
