@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Journal, News
+from .models import Advertisement, Article, Journal, News
 
 
 @admin.register(News)
@@ -19,3 +19,8 @@ class ArticleAdmin(admin.ModelAdmin):
 @admin.register(Journal)
 class JournalAdmin(admin.ModelAdmin):
     ordering = ("-created",)
+
+
+@admin.register(Advertisement)
+class AdvertisementAdmin(admin.ModelAdmin):
+    pass

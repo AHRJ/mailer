@@ -9,7 +9,7 @@ from pagedown.widgets import AdminPagedownWidget
 from content.models import Article, Journal
 from content.news_sources import Zzr
 
-from .models import Advertisement, IssueAnnouncementLetter
+from .models import IssueAnnouncementLetter
 
 
 class IssueAnnouncementLetterArticlesLongInline(
@@ -24,11 +24,6 @@ class IssueAnnouncementLetterArticlesShortInline(
 ):
     model = IssueAnnouncementLetter.articles_short.through
     extra = 10
-
-
-@admin.register(Advertisement)
-class AdvertisementAdmin(admin.ModelAdmin):
-    pass
 
 
 @admin.register(IssueAnnouncementLetter)
