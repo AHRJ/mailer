@@ -17,6 +17,7 @@ class Journal(models.Model):
         options={"quality": 90},
     )
     cover_url = models.URLField(blank=True, null=True)
+    created = models.DateField(null=True)
 
     class Meta:
         verbose_name = "Журнал"
