@@ -1,0 +1,6 @@
+{% load static %}
+<ul>
+{% for issueannouncementletter in issueannouncementletter_list %}
+<li><a href="{% url 'issue_announcement:detail' issueannouncementletter.pk %}">{{ issueannouncementletter.send_date.date }} • {{ issueannouncementletter.title }}</a></li>
+{% endfor %}
+</ul>

@@ -75,12 +75,17 @@ THIRD_PARTY_APPS = [
     "django_cleanup.apps.CleanupConfig",
     "django_q",
     "imagekit",
+    "django_object_actions",
+    "pagedown.apps.PagedownConfig",
+    "markdownify.apps.MarkdownifyConfig",
 ]
 
 LOCAL_APPS = [
     "zzr_mailer.users.apps.UsersConfig",
     "content",
     "news_digest",
+    "letter",
+    "issue_announcement",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -290,4 +295,16 @@ Q_CLUSTER = {
     "timeout": 90,
     "retry": 90,
     "django_redis": "default",
+}
+MARKDOWNIFY = {
+    "default": {
+        "BLEACH": False,
+        "LINKIFY_TEXT": {
+            "PARSE_URLS": True,
+            # Next key/value-pairs only have effect if "PARSE_URLS" is True
+            "PARSE_EMAIL": False,
+            "CALLBACKS": [],
+            "SKIP_TAGS": [],
+        },
+    }
 }

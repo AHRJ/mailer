@@ -7,16 +7,16 @@ from django_q.tasks import async_iter
 from content.models import News
 from content.news_sources import Zzr
 
-from .models import AddressBook, Advertisement, Letter
+from .models import Advertisement, NewsDigestLetter
 
 
-class LetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = Letter.news_long.through
+class NewsDigestLetterNewsLongInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = NewsDigestLetter.news_long.through
     extra = 8
 
 
-class LetterNewsShortInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = Letter.news_short.through
+class NewsDigestLetterNewsShortInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = NewsDigestLetter.news_short.through
     extra = 10
 
 
@@ -25,16 +25,11 @@ class AdvertisementAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(AddressBook)
-class AddressBookAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Letter)
-class LetterAdmin(admin.ModelAdmin):
+@admin.register(NewsDigestLetter)
+class NewsDigestLetterAdmin(admin.ModelAdmin):
     inlines = (
-        LetterNewsLongInline,
-        LetterNewsShortInline,
+        NewsDigestLetterNewsLongInline,
+        NewsDigestLetterNewsShortInline,
     )
     list_display = (
         "title",
@@ -61,22 +56,22 @@ class LetterAdmin(admin.ModelAdmin):
     def create_campaign(self, obj):
         obj.update_status()
 
-        if obj.status == Letter.Status.UNPLANNED:
+        if obj.status == NewsDigestLetter.Status.UNPLANNED:
             url = reverse("news_digest:create_campaign", args=[obj.id])
             text = "Запланировать рассылку"
-        elif obj.status == Letter.Status.PENDING:
+        elif obj.status == NewsDigestLetter.Status.PENDING:
             url = "#"
             text = ""
-        elif obj.status == Letter.Status.SENT:
+        elif obj.status == NewsDigestLetter.Status.SENT:
             url = "#"
             text = ""
-        elif obj.status == Letter.Status.PLANNED:
+        elif obj.status == NewsDigestLetter.Status.PLANNED:
             url = reverse("news_digest:cancel_campaign", args=[obj.id])
             text = "Отменить рассылку"
-        elif obj.status == Letter.Status.EXPIRED:
+        elif obj.status == NewsDigestLetter.Status.EXPIRED:
             url = ""
             text = ""
-        elif obj.status == Letter.Status.ERROR:
+        elif obj.status == NewsDigestLetter.Status.ERROR:
             url = ""
             text = ""
         return format_html(f"<a href='{url}'>{text}</a>")

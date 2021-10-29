@@ -23,6 +23,7 @@ class Article(models.Model):
     rubric = models.CharField(max_length=127, blank=True, null=True)
     doi = models.CharField(max_length=127, blank=True, null=True)
     partner = models.CharField(max_length=127, blank=True, null=True)
+    created = models.DateField(null=True)
 
     class Meta:
         verbose_name = "Статья"
