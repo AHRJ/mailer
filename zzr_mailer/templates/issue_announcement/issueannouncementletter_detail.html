@@ -1421,7 +1421,7 @@
                                                     text-decoration: none;
                                                     color: #333333;
                                                     font-size: 20px;
-                                                  " href="{{ article_long.link }}">{{ article_long.title }}</a>
+                                                  " href="{{ article_long.link }}">{{ article_long.title | safe}}</a>
                                               </h2>
                                             </td>
                                           </tr>
@@ -1443,7 +1443,7 @@
                                                   color: #333333;
                                                   font-size: 14px;
                                                 ">
- {{ article_long.teaser }}
+ {{ article_long.teaser|safe }}
                                               </p>
                                             </td>
                                           </tr>
@@ -1589,7 +1589,7 @@
                                                     text-decoration: none;
                                                     color: #333333;
                                                     font-size: 20px;
-                                                  " href="{{ article_long.link }}"> {{ article_long.title }}</a>
+                                                  " href="{{ article_long.link }}"> {{ article_long.title | safe}}</a>
                                               </h2>
                                             </td>
                                           </tr>
@@ -1611,7 +1611,7 @@
                                                   color: #333333;
                                                   font-size: 14px;
                                                 ">
- {{ article_long.teaser }}
+ {{ article_long.teaser|safe }}
                                               </p>
                                             </td>
                                           </tr>
