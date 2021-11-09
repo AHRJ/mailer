@@ -1795,7 +1795,7 @@
                                                     "
                                                     href="{{ article_short.link }}"
                                                     rel="nofollow"
-                                                    >{{ article_short.title }}
+                                                    >{{ article_short.title|safe }}
                                                   </a>
 {% if article_short.authors %}
 ({{ article_short.authors }})
