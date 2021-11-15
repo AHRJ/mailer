@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django_q.tasks import async_iter
 
-from content.models import News
-from content.news_sources import Zzr
+from zzr_mailer.content.models import News
+from zzr_mailer.content.news_sources import Zzr
 
 from .models import NewsDigestLetter
 

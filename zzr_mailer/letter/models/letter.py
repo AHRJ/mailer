@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
-from news_digest.utils import next_monday
+from zzr_mailer.news_digest.utils import next_monday
 
 from .addressbook import AddressBook
 from .campaign import Campaign

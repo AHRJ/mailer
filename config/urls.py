@@ -5,10 +5,12 @@ from django.urls import include, path
 from django.views import defaults as default_views
 
 urlpatterns = [
-    path("news-digest/", include("news_digest.urls", namespace="news_digest")),
+    path(
+        "news-digest/", include("zzr_mailer.news_digest.urls", namespace="news_digest")
+    ),
     path(
         "issue-announcement/",
-        include("issue_announcement.urls", namespace="issue_announcement"),
+        include("zzr_mailer.issue_announcement.urls", namespace="issue_announcement"),
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

@@ -2,7 +2,7 @@ from django.db import models
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
-from news_digest.utils import get_img_from_url, trim
+from zzr_mailer.news_digest.utils import get_img_from_url, trim
 
 
 class Article(models.Model):

@@ -1,7 +1,7 @@
 from django.db import models
 
-from content.models import Advertisement, Article, Journal
-from letter.models import Letter
+from zzr_mailer.content.models import Advertisement, Article, Journal
+from zzr_mailer.letter.models import Letter
 
 
 class IssueAnnouncementLetter(Letter):

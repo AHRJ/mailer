@@ -6,8 +6,8 @@ from django.utils.html import format_html
 from django_q.tasks import async_iter
 from pagedown.widgets import AdminPagedownWidget
 
-from content.models import Article, Journal
-from content.news_sources import Zzr
+from zzr_mailer.content.models import Article, Journal
+from zzr_mailer.content.news_sources import Zzr
 
 from .models import IssueAnnouncementLetter
 
