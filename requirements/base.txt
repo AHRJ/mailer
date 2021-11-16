@@ -22,3 +22,4 @@ django-imagekit==4.0.2 # https://github.com/matthewwithanm/django-imagekit
 django-object-actions==3.0.2 # https://github.com/crccheck/django-object-actions
 django-pagedown==2.2.1  # https://github.com/timmyomahony/django-pagedown
 django-markdownify==0.9.0 # https://github.com/erwinmatijsen/django-markdownify
+django-mjml[requests]==0.11.0 # https://github.com/liminspace/django-mjml

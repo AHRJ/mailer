@@ -78,6 +78,7 @@ THIRD_PARTY_APPS = [
     "django_object_actions",
     "pagedown.apps.PagedownConfig",
     "markdownify.apps.MarkdownifyConfig",
+    "mjml",
 ]
 
 LOCAL_APPS = [
@@ -308,3 +309,15 @@ MARKDOWNIFY = {
         },
     }
 }
+
+# Django-MJML
+# ------------------------------------------------------------------------------
+MJML_BACKEND_MODE = "httpserver"
+MJML_APP_ID = env.str("DJANGO_MJML_APP_ID")
+MJML_SECRET_KEY = env.str("DJANGO_MJML_SECRET_KEY")
+MJML_HTTPSERVERS = [
+    {
+        "URL": "https://api.mjml.io/v1/render",
+        "HTTP_AUTH": (MJML_APP_ID, MJML_SECRET_KEY),
+    }
+]
