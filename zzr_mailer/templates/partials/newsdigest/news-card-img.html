@@ -1,0 +1,9 @@
+<mj-section>
+<mj-column width="30%">
+        <mj-image href="{{ news.link }}" fluid-on-mobile="true" border="1px solid #ddd" border-radius="5px" align="left" src="{{ news.image.url }}" />
+</mj-column>
+<mj-column width="70%" css-class="news-card-text">
+<mj-text padding-bottom="10px" font-weight="bold" font-size="17px" color="#444"><a class="link-nostyle" href="{{ news.link }}">{{ news.title }}</a></mj-text>
+<mj-text padding-bottom="10px" font-size="14px" color="#555" line-height="1.2">{{ news.teaser }}</mj-text>
+<mj-text font-size="12px" color="#855" font-weight="bold" text-decoration="underline"><a class="link-nostyle" href="{{ news.link }}">Подробности</a></mj-text>
+</mj-section>

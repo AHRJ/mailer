@@ -1,0 +1,11 @@
+{% load static %}
+<!-- Header -->
+<mj-section background-color="#C00">
+  <mj-column width="80%" vertical-align="middle">
+    <mj-image href="https://zzr.ru" width="150px" align="left" src="{% static 'images/zzr_logo.png' %}" />
+  </mj-column>
+  <mj-group width="20%" css-class="hide-on-mobile" vertical-align="middle">
+    {% include 'partials/common/social.html'%}
+  </mj-group>
+</mj-section>
+<!-- End Header -->
