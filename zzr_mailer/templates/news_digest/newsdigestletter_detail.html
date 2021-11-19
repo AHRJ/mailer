@@ -12,12 +12,17 @@
   </mj-section>
   {% for news in newsdigestletter.news_long_sorted %}
   {% include 'partials/newsdigest/news-card-img.html'%}
+
+
+  {% if forloop.counter == 3 and newsdigestletter.advertisement %}
+  {% autoescape off %}
+  {% include 'partials/common/divider.html' %}
+  {{ newsdigestletter.advertisement.body }}
+  {% endautoescape %}
+  {% endif %}
+
   {% if not forloop.last %}
-  <mj-section>
-    <mj-column>
-      <mj-divider border-width="1px" border-style="dashed" border-color="#ddd" />
-    </mj-column>
-  </mj-section>
+  {% include 'partials/common/divider.html' %}
   {% endif %}
   {% endfor %}
 </mj-wrapper>
