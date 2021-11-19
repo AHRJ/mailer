@@ -143,6 +143,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "htmlmin.middleware.HtmlMinifyMiddleware",
+    "htmlmin.middleware.MarkRequestMiddleware",
 ]
 
 # STATIC
@@ -321,3 +323,7 @@ MJML_HTTPSERVERS = [
         "HTTP_AUTH": (MJML_APP_ID, MJML_SECRET_KEY),
     }
 ]
+
+# Django-htmlmin
+# ------------------------------------------------------------------------------
+HTML_MINIFY = True
