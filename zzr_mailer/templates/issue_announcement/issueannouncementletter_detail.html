@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load mjml %}
+{% load static %}
 {% block title %}{{ issueannouncementletter.title }}{% endblock title %}
 
 {% block body %}
-<mj-section background-color="#ddd">
-      <mj-column>
-			  <mj-text>{{ issueannouncementletter.title }}</mj-text>
-      </mj-column>
-</mj-section>
+
+{% include 'partials/issueannouncement/greeting.html' %}
+{% include 'partials/common/spacer.html' %}
+{% include 'partials/issueannouncement/articleblock-detailed.html' %}
+{% include 'partials/common/spacer.html' %}
+{% include 'partials/issueannouncement/articleblock-short.html' %}
+{% include 'partials/common/spacer.html' %}
+{% include 'partials/issueannouncement/journal-info.html' %}
+
 {% endblock body %}

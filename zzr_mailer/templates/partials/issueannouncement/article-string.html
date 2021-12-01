@@ -1,0 +1,6 @@
+{% load nbsp %}
+<mj-section padding-bottom="5px">
+<mj-column>
+<mj-text color="#444" font-size="16px" line-height="1.2">• <a class="underlined" href="{{ article.link }}">{{ article.title }}</a> {% if article.authors %}({{ article.authors|nbsp }}){% endif %}</mj-text>
+</mj-column>
+</mj-section>

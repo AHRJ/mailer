@@ -47,7 +47,7 @@ class IssueAnnouncementLetterAdmin(admin.ModelAdmin):
     fields = (
         "journal",
         "title",
-        "synopsis",
+        "greeting",
         "advertisement",
         "send_date",
         "addressbooks",

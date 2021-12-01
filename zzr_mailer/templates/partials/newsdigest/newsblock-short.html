@@ -1,0 +1,10 @@
+<mj-wrapper background-color="#fff">
+  <mj-section>
+    <mj-column>
+      <mj-text font-size="20px" align="center" font-weight="bold" color="#666">Одной строкой</mj-text>
+    </mj-column>
+  </mj-section>
+  {% for news in newsdigestletter.news_short_sorted %}
+  {% include 'partials/newsdigest/news-string.html' %}
+  {% endfor %}
+</mj-wrapper>

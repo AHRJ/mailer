@@ -8,7 +8,7 @@ class IssueAnnouncementLetter(Letter):
     journal = models.ForeignKey(
         Journal, verbose_name="Журнал", on_delete=models.CASCADE
     )
-    synopsis = models.TextField("Встуление")
+    greeting = models.TextField("Приветствие")
     articles_long = models.ManyToManyField(
         Article, through="LetterArticleLong", related_name="article_long+"
     )

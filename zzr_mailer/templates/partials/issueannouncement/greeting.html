@@ -1,0 +1,23 @@
+{% load markdownify %}
+<mj-wrapper background-color="#fff">
+  <mj-section>
+    <mj-column>
+      <mj-text font-size="22px" padding-bottom="8px" align="center" font-weight="bold" color="#444">Журнал «Животноводство России»</mj-text>
+      <mj-text font-size="18px" align="center" font-weight="bold" color="#866">{{ issueannouncementletter.journal.issue }} {{ issueannouncementletter.journal.year }}</mj-text>
+    </mj-column>
+  </mj-section>
+
+  <mj-section padding-bottom="0">
+    <mj-column width="20%" padding="0">
+      <mj-image href="https://zzr.ru" src="https://mailing.zzr.ru/2021/1/header-pic.jpg" />
+    </mj-column>
+  </mj-section>
+
+  <mj-section padding-bottom="0">
+    <mj-column>
+      <mj-text font-size="20px" align="center" color="#444">Дорогие друзья!</mj-text>
+      <mj-text font-size="16px" color="#555" line-height="1.2" css-class="colored-links">{{ issueannouncementletter.greeting|markdownify }}</mj-text>
+      <mj-text padding-top="20px" font-size="14px" align="right" color="#777" line-height="1.2">С уважением,<br>главный редактор Наталия СОБОЛЬ </mj-text>
+    </mj-column>
+  </mj-section>
+</mj-wrapper>

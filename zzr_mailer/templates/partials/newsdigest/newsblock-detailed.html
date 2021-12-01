@@ -1,0 +1,21 @@
+<mj-wrapper background-color="#fff">
+  <mj-section>
+    <mj-column>
+      <mj-text font-size="25px" align="center" font-weight="bold" color="#666">{{ newsdigestletter.subtitle }}</mj-text>
+    </mj-column>
+  </mj-section>
+  {% for news in newsdigestletter.news_long_sorted %}
+  {% include 'partials/newsdigest/news-card-img.html'%}
+
+  {% if forloop.counter == 3 and newsdigestletter.advertisement %}
+  {% include 'partials/common/divider.html' %}
+  {% autoescape off %}
+  {{ newsdigestletter.advertisement.body }}
+  {% endautoescape %}
+  {% endif %}
+
+  {% if not forloop.last %}
+  {% include 'partials/common/divider.html' %}
+  {% endif %}
+  {% endfor %}
+</mj-wrapper>

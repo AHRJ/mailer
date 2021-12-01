@@ -4,39 +4,9 @@
 {% block title %}{{ newsdigestletter.title }}{% endblock title %}
 
 {% block body %}
-<mj-wrapper background-color="#fff">
-  <mj-section>
-    <mj-column>
-      <mj-text font-size="25px" align="center" font-weight="bold" color="#666">{{ newsdigestletter.subtitle }}</mj-text>
-    </mj-column>
-  </mj-section>
-  {% for news in newsdigestletter.news_long_sorted %}
-  {% include 'partials/newsdigest/news-card-img.html'%}
 
-
-  {% if forloop.counter == 3 and newsdigestletter.advertisement %}
-  {% autoescape off %}
-  {% include 'partials/common/divider.html' %}
-  {{ newsdigestletter.advertisement.body }}
-  {% endautoescape %}
-  {% endif %}
-
-  {% if not forloop.last %}
-  {% include 'partials/common/divider.html' %}
-  {% endif %}
-  {% endfor %}
-</mj-wrapper>
-
+{% include 'partials/newsdigest/newsblock-detailed.html' %}
 {% include 'partials/common/spacer.html' %}
+{% include 'partials/newsdigest/newsblock-short.html' %}
 
-<mj-wrapper background-color="#fff">
-  <mj-section>
-    <mj-column>
-      <mj-text font-size="20px" align="center" font-weight="bold" color="#666">Одной строкой</mj-text>
-    </mj-column>
-  </mj-section>
-  {% for news in newsdigestletter.news_short_sorted %}
-  {% include 'partials/newsdigest/news-string.html' %}
-  {% endfor %}
-</mj-wrapper>
 {% endblock body %}

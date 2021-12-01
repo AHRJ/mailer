@@ -1,0 +1,32 @@
+<mj-wrapper background-color="#fff">
+  <mj-section>
+    <mj-column padding-bottom="10px">
+      <mj-text font-size="25px" align="center" font-weight="bold" color="#666">Статьи номера
+      </mj-text>
+    </mj-column>
+  </mj-section>
+  {% for article in issueannouncementletter.articles_long_sorted %}
+
+    {% if not forloop.counter|divisibleby:2 %}
+       <mj-section padding-top="0" padding-bottom="0">
+    {% endif %}
+
+    {% include 'partials/issueannouncement/article-card-img.html'%}
+
+    {% if not forloop.counter|divisibleby:2 %}
+     <mj-column width="4%">
+     </mj-column>
+    {% endif %}
+
+    {% if forloop.counter|divisibleby:2 %}
+       </mj-section>
+    {% endif %}
+
+    {% if forloop.counter == 4 and issueannouncementletter.advertisement %}
+    {% autoescape off %}
+    {{ issueannouncementletter.advertisement.body }}
+    {% endautoescape %}
+    {% endif %}
+
+  {% endfor %}
+</mj-wrapper>

@@ -1,0 +1,10 @@
+<mj-wrapper background-color="#fff">
+  <mj-section>
+    <mj-column>
+      <mj-text font-size="20px" align="center" font-weight="bold" color="#666">Другие статьи</mj-text>
+    </mj-column>
+  </mj-section>
+  {% for article in issueannouncementletter.articles_short_sorted %}
+  {% include 'partials/issueannouncement/article-string.html' %}
+  {% endfor %}
+</mj-wrapper>

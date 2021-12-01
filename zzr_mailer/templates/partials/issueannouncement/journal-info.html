@@ -1,0 +1,32 @@
+{% load markdownify %}
+<mj-wrapper background-color="#C00">
+  <mj-section padding-bottom="0">
+    <mj-column>
+      <mj-text font-size="25px" align="left" font-weight="bold" color="#eee">О журналe</mj-text>
+    </mj-column>
+  </mj-section>
+
+  <mj-section>
+    <mj-column width="70%" padding-right="15px">
+      <mj-text font-size="16px" padding-bottom="35px" align="left" color="#eee">
+        «Животноводство России» — научно-практический журнал для руководителей и специалистов АПК.
+        <br><br>
+        Это единственный в стране журнал, который освещает в комплексе вопросы основных подотраслей животноводства: молочного и мясного скотоводства, птицеводства, свиноводства, а также рассказывает о современных технологиях и об инновациях для этих подотраслей.
+        <br><br>
+        «Животноводство России» мы выпускаем с 1999 г. Журнал входит в тройку лидеров отраслевых СМИ.
+      </mj-text>
+
+      <mj-text font-size="13px" align="left" color="#eee">
+          <a href="https://zzr.ru/archive" class="link-nostyle button-red">Архив</a>
+          <a href="https://zzr.ru/subscribe" class="link-nostyle button-red">Подписка</a>
+          <a href="https://zzr.ru/for-authors" class="link-nostyle button-red">Авторам</a>
+          <a href="https://zzr.ru/partnership/mailout" class="link-nostyle button-red">Рекламодателям</a>
+      </mj-text>
+    </mj-column>
+
+    <mj-column width="30%" css-class="hide-on-mobile">
+      <mj-image href="{{ issueannouncementletter.journal.link }}" src="{{ issueannouncementletter.journal.cover.url }}" border="1px solid #888" fluid-on-mobile="true" border-radius="5px"/>
+    </mj-column>
+  </mj-section>
+
+</mj-wrapper>

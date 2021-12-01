@@ -1,4 +1,4 @@
-<mj-font name="PT Sans" href="https://fonts.googleapis.com/css?family=PT+Sans" />
+<mj-font name="PT Sans" href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" />
 
 <mj-attributes>
   <mj-all font-family="PT Sans" padding="0" />
@@ -13,8 +13,14 @@
 
   @media (min-width:480px) {
   .news-card-text div {
-  padding: 0 0 0 10px !important;
+  padding: 0 0 0 20px !important;
   }
+  }
+</mj-style>
+
+<mj-style>
+  .article-card-text div {
+  padding: 15px 0 25px 0;
   }
 </mj-style>
 
@@ -34,7 +40,6 @@
   .fixed-width {
   width: 120px !important;
   }
-
 </mj-style>
 
 <mj-style inline="inline">
@@ -42,5 +47,21 @@
 </mj-style>
 
 <mj-style inline="inline">
-  .underlined {border-bottom: 1px solid #ddd;}
+  .inline { display: inline-block !important; }
+</mj-style>
+
+<mj-style inline="inline">
+  .underlined {color: inherit; text-decoration: none; border-bottom: 1px solid #ddd;}
+</mj-style>
+
+<mj-style inline="inline">
+  .colored-links a {color: #866; text-decoration: none; border-bottom: 1px solid #ddd;}
+</mj-style>
+
+<mj-style inline="inline">
+  .button-red {background: #a00; color: #eee; border-radius: 5px; padding: 3px 5px;}
+</mj-style>
+
+<mj-style inline="inline">
+  .button-blue {background: #1188de; color: #eee; border-radius: 5px; padding: 3px 5px;}
 </mj-style>
