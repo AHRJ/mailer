@@ -73,7 +73,7 @@ class Zzr:
                     link=entry["link"],
                     cover_url=entry["cover"],
                     year=int(entry["year"]) if entry["year"] else None,
-                    issue=entry["issue"],
+                    issue=entry["issue"].replace("Спецвыпуск", "Тематический выпуск"),
                     created=parse_date(entry["created"]),
                 )
                 for entry in journals_from_zzr
