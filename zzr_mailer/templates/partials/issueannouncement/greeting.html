@@ -1,3 +1,4 @@
+{% load typograph %}
 {% load markdownify %}
 <mj-wrapper background-color="#fff">
   <mj-section>
@@ -16,7 +17,7 @@
   <mj-section padding-bottom="0">
     <mj-column>
       <mj-text font-size="20px" align="center" color="#444">Дорогие друзья!</mj-text>
-      <mj-text font-size="16px" color="#555" line-height="1.2" css-class="colored-links">{{ issueannouncementletter.greeting|markdownify }}</mj-text>
+      <mj-text font-size="16px" color="#555" line-height="1.2" css-class="colored-links">{{ issueannouncementletter.greeting | markdownify | typograph }}</mj-text>
       <mj-text padding-top="20px" font-size="14px" align="right" color="#777" line-height="1.2">С уважением,<br>главный редактор Наталия СОБОЛЬ </mj-text>
     </mj-column>
   </mj-section>

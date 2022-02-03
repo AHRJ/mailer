@@ -6,6 +6,8 @@ redis==3.5.3  # https://github.com/andymccurdy/redis-py
 hiredis==1.1.0  # https://github.com/redis/hiredis-py
 python-memcached==1.59 # https://github.com/linsomniac/python-memcached
 requests==2.25.1 # https://github.com/psf/requests
+chakert==0.2.1 # https://github.com/Harut/chakert
+lxml==4.7.1 # https://pypi.org/project/lxml/
 
 # Django
 # ------------------------------------------------------------------------------
