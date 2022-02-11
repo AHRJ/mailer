@@ -6,7 +6,7 @@ from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 from model_utils.models import TimeStampedModel
 
-from zzr_mailer.news_digest.utils import get_img_from_url, trim
+from zzr_mailer.utils.utils import get_img_from_url, trim
 
 
 class News(TimeStampedModel):

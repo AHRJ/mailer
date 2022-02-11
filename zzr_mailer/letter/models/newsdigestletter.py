@@ -1,7 +1,8 @@
 from django.db import models
 
 from zzr_mailer.content.models import Advertisement, News
-from zzr_mailer.letter.models import Letter
+
+from .letter import Letter
 
 
 class NewsDigestLetter(Letter):
@@ -31,8 +32,8 @@ class NewsDigestLetter(Letter):
         return self.news_short.order_by("letternewsshort__order")
 
     class Meta:
-        verbose_name = "Рассылочное письмо"
-        verbose_name_plural = "Рассылочные письма"
+        verbose_name = "Новостной дайджест"
+        verbose_name_plural = "Новостные дайджесты"
 
 
 class LetterNewsLong(models.Model):

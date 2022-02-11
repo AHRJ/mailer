@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
-from zzr_mailer.news_digest.utils import next_monday
+from zzr_mailer.utils.utils import next_monday
 
 from .addressbook import AddressBook
 from .campaign import Campaign
@@ -22,9 +22,7 @@ class Letter(TimeStampedModel):
         EXPIRED = "EXP", "Просрочена"
         ERROR = "ERR", "Ошибка"
 
-    title = models.CharField(
-        "Тема письма", max_length=255, default="🐄 Новости животноводства"
-    )
+    title = models.CharField("Тема письма", max_length=255, default="🐄 ")
     campaigns = models.ManyToManyField(Campaign, blank=True)
     addressbooks = models.ManyToManyField(
         AddressBook,
