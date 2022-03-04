@@ -19,6 +19,7 @@ class News(TimeStampedModel):
         processors=[ResizeToFill(300, 180)],
         format="JPEG",
         options={"quality": 90},
+        blank=True,
     )
     image_url = models.URLField(blank=True, null=True)
     pub_date = models.DateTimeField(default=timezone.now)

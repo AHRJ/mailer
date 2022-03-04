@@ -1,7 +1,7 @@
 {% load typograph %}
 <mj-section>
 <mj-column width="30%">
-        <mj-image href="{{ news.link }}" fluid-on-mobile="true" border="1px solid #ddd" border-radius="5px" align="left" src="{{ news.image.url }}" />
+  <mj-image href="{{ news.link }}" fluid-on-mobile="true" border="1px solid #ddd" border-radius="5px" align="left" src="{% if news.image_url %} {{ news.image.url }} {% endif %}" />
 </mj-column>
 <mj-column width="70%" css-class="news-card-text">
   <mj-text padding-bottom="10px" font-weight="bold" font-size="18px" color="#444"><a class="link-nostyle" href="{{ news.link }}">{{ news.title | typograph }}</a></mj-text>
