@@ -6,6 +6,8 @@ from .letter import Letter
 
 
 class IssueAnnouncementLetter(Letter):
+    letter_type = "issueannouncementletter"
+
     journal = models.ForeignKey(
         Journal, verbose_name="Журнал", on_delete=models.CASCADE
     )

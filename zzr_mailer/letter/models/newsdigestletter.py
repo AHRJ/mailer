@@ -6,6 +6,8 @@ from .letter import Letter
 
 
 class NewsDigestLetter(Letter):
+    letter_type = "newsdigestletter"
+
     subtitle = models.CharField(
         "Заголовок письма", max_length=255, default="Актуальные новости отрасли"
     )
