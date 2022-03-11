@@ -20,36 +20,36 @@ urlpatterns = [
     path(
         "newsdigest/<int:pk>/",
         view=NewsDigestLetterDetailView.as_view(),
-        name="newsdigest_detail",
+        name="newsdigestletter_detail",
     ),
     path(
         "newsdigest/<int:pk>/create-campaign/",
         view=staff_member_required(NewsDigestLetterCreateCampaignView.as_view()),
-        name="newsdigest_create_campaign",
+        name="newsdigestletter_create_campaign",
     ),
     path(
         "newsdigest/<int:pk>/cancel-campaign/",
         view=staff_member_required(NewsDigestLetterCancelCampaignView.as_view()),
-        name="newsdigest_cancel_campaign",
+        name="newsdigestletter_cancel_campaign",
     ),
     path(
         "issue-announcement/",
         view=IssueAnnouncementLetterListView.as_view(),
-        name="issueannouncement_list",
+        name="issueannouncementletter_list",
     ),
     path(
         "issue-announcement/<int:pk>/",
         view=IssueAnnouncementLetterDetailView.as_view(),
-        name="issueannouncement_detail",
+        name="issueannouncementletter_detail",
     ),
     path(
         "issue-announcement/<int:pk>/create-campaign/",
         view=staff_member_required(IssueAnnouncementLetterCreateCampaignView.as_view()),
-        name="issueannouncement_create_campaign",
+        name="issueannouncementletter_create_campaign",
     ),
     path(
         "issue-announcement/<int:pk>/cancel-campaign/",
         view=staff_member_required(IssueAnnouncementLetterCancelCampaignView.as_view()),
-        name="issueannouncement_cancel_campaign",
+        name="issueannouncementletter_cancel_campaign",
     ),
 ]
