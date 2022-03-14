@@ -1,0 +1,9 @@
+<mj-wrapper background-color="#fff">
+<mj-section>
+<mj-column>
+  <mj-text padding-bottom="20px" align="center" font-weight="bold" font-size="18px" color="#444">В рамках Вашей подписки доступны для скачивания выпуски:</mj-text>
+  {% for journal in additional_journals %}
+  <mj-text padding-bottom="10px" align="center" font-weight="bold" font-size="15px" color="#444"><a href="{{ journal.pdf.url }}">{{ journal.issue }} {{ journal.year }}</a></mj-text>
+  {% endfor %}
+</mj-section>
+</mj-wrapper>

@@ -4,10 +4,16 @@ from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django_q.tasks import async_task
 
+from zzr_mailer.content.models import Journal
 from zzr_mailer.letter.models import Campaign
 from zzr_mailer.utils.sendpulse import SPSender
 
-from .models import IssueAnnouncementLetter, Letter, NewsDigestLetter
+from .models import (
+    IssueAnnouncementLetter,
+    IssueDownloadLetter,
+    Letter,
+    NewsDigestLetter,
+)
 
 # Abstract views
 
@@ -105,3 +111,34 @@ class IssueAnnouncementLetterCreateCampaignView(CreateCampaignView):
 
 class IssueAnnouncementLetterCancelCampaignView(CancelCampaignView):
     model = IssueAnnouncementLetter
+
+
+# Issue download views
+
+
+class IssueDownloadLetterDetailView(DetailView):
+    model = IssueDownloadLetter
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueDownloadLetterDetailView, self).get_context_data(**kwargs)
+        context["additional_journals"] = Journal.objects.filter(
+            year=self.object.journal.year
+        ).exclude(pk=self.object.journal.pk)
+        return context
+
+
+class IssueDownloadLetterCreateCampaignView(CreateCampaignView):
+    model = IssueDownloadLetter
+
+    def get_context_data(self, **kwargs):
+        context = super(IssueDownloadLetterCreateCampaignView, self).get_context_data(
+            **kwargs
+        )
+        context["additional_journals"] = Journal.objects.filter(
+            year=self.object.journal.year
+        ).exclude(pk=self.object.journal.pk)
+        return context
+
+
+class IssueDownloadLetterCancelCampaignView(CancelCampaignView):
+    model = IssueDownloadLetter

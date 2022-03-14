@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load mjml %}
+{% load static %}
+{% block title %}{{ issuedownloadletter.title }}{% endblock title %}
+
+{% block body %}
+
+{% include 'partials/issuedownload/current_issue.html' %}
+
+{% if additional_journals %}
+  {% include 'partials/common/spacer.html' %}
+  {% include 'partials/issuedownload/issue_list.html' %}
+{% endif %}
+
+{% endblock body %}

@@ -6,6 +6,9 @@ from .views import (
     IssueAnnouncementLetterCreateCampaignView,
     IssueAnnouncementLetterDetailView,
     IssueAnnouncementLetterListView,
+    IssueDownloadLetterCancelCampaignView,
+    IssueDownloadLetterCreateCampaignView,
+    IssueDownloadLetterDetailView,
     NewsDigestLetterCancelCampaignView,
     NewsDigestLetterCreateCampaignView,
     NewsDigestLetterDetailView,
@@ -51,5 +54,20 @@ urlpatterns = [
         "issue-announcement/<int:pk>/cancel-campaign/",
         view=staff_member_required(IssueAnnouncementLetterCancelCampaignView.as_view()),
         name="issueannouncementletter_cancel_campaign",
+    ),
+    path(
+        "issue-download/<int:pk>/",
+        view=IssueDownloadLetterDetailView.as_view(),
+        name="issuedownloadletter_detail",
+    ),
+    path(
+        "issue-download/<int:pk>/create-campaign/",
+        view=staff_member_required(IssueDownloadLetterCreateCampaignView.as_view()),
+        name="issuedownloadletter_create_campaign",
+    ),
+    path(
+        "issue-download/<int:pk>/cancel-campaign/",
+        view=staff_member_required(IssueDownloadLetterCancelCampaignView.as_view()),
+        name="issuedownloadletter_cancel_campaign",
     ),
 ]

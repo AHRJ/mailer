@@ -1,3 +1,6 @@
+import os
+from uuid import uuid4
+
 from django.db import models
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
@@ -6,6 +9,11 @@ from zzr_mailer.utils.utils import get_img_from_url
 
 
 class Journal(models.Model):
+    def content_file_name(instance, filename):
+        ext = filename.split(".")[-1]
+        filename = f"{instance.pk}-{uuid4().hex[0:7]}.{ext}"
+        return os.path.join("files/journal/pdf", filename)
+
     id = models.CharField(primary_key=True, max_length=63)
     issue = models.CharField(max_length=255)
     year = models.IntegerField(blank=True, null=True)
@@ -18,6 +26,7 @@ class Journal(models.Model):
     )
     cover_url = models.URLField(blank=True, null=True)
     created = models.DateField(null=True)
+    pdf = models.FileField(verbose_name="PDF", upload_to=content_file_name, blank=True)
 
     class Meta:
         verbose_name = "Журнал"

@@ -10,7 +10,13 @@ from pagedown.widgets import AdminPagedownWidget
 from zzr_mailer.content.models import Article, Journal, News
 from zzr_mailer.content.news_sources import Zzr
 
-from .models import AddressBook, IssueAnnouncementLetter, Letter, NewsDigestLetter
+from .models import (
+    AddressBook,
+    IssueAnnouncementLetter,
+    IssueDownloadLetter,
+    Letter,
+    NewsDigestLetter,
+)
 
 # Abstract admin
 
@@ -150,6 +156,28 @@ class IssueAnnouncementLetterAdmin(LetterAdmin):
         super().save_related(request, form, formsets, change)
         articles = [entry for entry in form.instance.articles_long.all()]
         async_iter(Article.fill_header_photo_from_url, articles)
+
+
+# Issue download admin
+
+
+@admin.register(IssueDownloadLetter)
+class IssueDownloadLetterAdmin(LetterAdmin):
+
+    fields = (
+        "title",
+        "journal",
+        "send_date",
+        "addressbooks",
+    )
+
+    def add_view(self, request, form_url="", extra_context=None):
+        Journal.load_from(Zzr)
+        return super().add_view(request, form_url, extra_context)
+
+    def change_view(self, request, object_id, form_url="", extra_context=None):
+        Journal.load_from(Zzr)
+        return super().change_view(request, object_id, form_url, extra_context)
 
 
 # AddressBook admin
