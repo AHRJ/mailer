@@ -2,6 +2,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import path
 
 from .views import (
+    GenericLetterCancelCampaignView,
+    GenericLetterCreateCampaignView,
+    GenericLetterDetailView,
     IssueAnnouncementLetterCancelCampaignView,
     IssueAnnouncementLetterCreateCampaignView,
     IssueAnnouncementLetterDetailView,
@@ -69,5 +72,20 @@ urlpatterns = [
         "issue-download/<int:pk>/cancel-campaign/",
         view=staff_member_required(IssueDownloadLetterCancelCampaignView.as_view()),
         name="issuedownloadletter_cancel_campaign",
+    ),
+    path(
+        "generic/<int:pk>/",
+        view=GenericLetterDetailView.as_view(),
+        name="genericletter_detail",
+    ),
+    path(
+        "generic/<int:pk>/create-campaign/",
+        view=staff_member_required(GenericLetterCreateCampaignView.as_view()),
+        name="genericletter_create_campaign",
+    ),
+    path(
+        "generic/<int:pk>/cancel-campaign/",
+        view=staff_member_required(GenericLetterCancelCampaignView.as_view()),
+        name="genericletter_cancel_campaign",
     ),
 ]

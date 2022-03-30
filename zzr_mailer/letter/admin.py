@@ -12,6 +12,7 @@ from zzr_mailer.content.news_sources import Zzr
 
 from .models import (
     AddressBook,
+    GenericLetter,
     IssueAnnouncementLetter,
     IssueDownloadLetter,
     Letter,
@@ -60,6 +61,24 @@ class LetterAdmin(admin.ModelAdmin):
         return format_html(f"<a href='{url}'>{text}</a>")
 
     create_campaign.short_description = "Действия"
+
+
+# Generic letter admin
+
+
+@admin.register(GenericLetter)
+class GenericLetterAdmin(LetterAdmin):
+
+    formfield_overrides = {
+        models.TextField: {"widget": AdminPagedownWidget},
+    }
+
+    fields = (
+        "title",
+        "body",
+        "send_date",
+        "addressbooks",
+    )
 
 
 # News digest admin

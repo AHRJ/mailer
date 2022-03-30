@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load mjml %}
+{% load static %}
+{% load typograph %}
+{% load markdownify %}
+
+{% block title %}{{ genericletter.title }}{% endblock title %}
+
+{% block body %}
+
+<mj-wrapper background-color="#fff">
+
+  <mj-section padding-bottom="0">
+    <mj-column>
+      <mj-text font-size="16px" color="#555" line-height="1.2" css-class="colored-links">{{ genericletter.body | markdownify | typograph }}</mj-text>
+    </mj-column>
+  </mj-section>
+</mj-wrapper>
+
+{% endblock body %}

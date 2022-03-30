@@ -9,6 +9,7 @@ from zzr_mailer.letter.models import Campaign
 from zzr_mailer.utils.sendpulse import SPSender
 
 from .models import (
+    GenericLetter,
     IssueAnnouncementLetter,
     IssueDownloadLetter,
     Letter,
@@ -73,6 +74,21 @@ class CancelCampaignView(DetailView):
         return HttpResponseRedirect(
             reverse(f"admin:letter_{self.model.letter_type}_changelist")
         )
+
+
+# Generic letter views
+
+
+class GenericLetterDetailView(DetailView):
+    model = GenericLetter
+
+
+class GenericLetterCreateCampaignView(CreateCampaignView):
+    model = GenericLetter
+
+
+class GenericLetterCancelCampaignView(CancelCampaignView):
+    model = GenericLetter
 
 
 # News digest views
