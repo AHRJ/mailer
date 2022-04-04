@@ -9,5 +9,5 @@ class GenericLetter(Letter):
     body = models.TextField("Текст письма")
 
     class Meta:
-        verbose_name = "Базовое письмо"
-        verbose_name_plural = "Базовые письма"
+        verbose_name = "Обычное письмо"
+        verbose_name_plural = "Обычные письма"
