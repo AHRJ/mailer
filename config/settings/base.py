@@ -325,3 +325,10 @@ MJML_HTTPSERVERS = [
 # Django-htmlmin
 # ------------------------------------------------------------------------------
 HTML_MINIFY = True
+
+
+# Django-pagedown
+# ------------------------------------------------------------------------------
+PAGEDOWN_IMAGE_UPLOAD_ENABLED = True
+PAGEDOWN_IMAGE_UPLOAD_PATH = "img/misc"
+PAGEDOWN_IMAGE_UPLOAD_UNIQUE = True

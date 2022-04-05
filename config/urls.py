@@ -14,6 +14,7 @@ urlpatterns = [
     # User management
     path("users/", include("zzr_mailer.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("", include("pagedown.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
