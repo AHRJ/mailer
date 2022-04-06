@@ -19,6 +19,7 @@ class ArticleAdmin(admin.ModelAdmin):
 @admin.register(Journal)
 class JournalAdmin(admin.ModelAdmin):
     ordering = ("-created",)
+    exclude = ("issue_type",)
 
 
 @admin.register(Advertisement)

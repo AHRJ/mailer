@@ -9,6 +9,10 @@ from zzr_mailer.utils.utils import get_img_from_url
 
 
 class Journal(models.Model):
+    class IssueType(models.TextChoices):
+        REGULAR = "R", "Номерной"
+        SPECIAL = "S", "Тематический"
+
     def content_file_name(instance, filename):
         ext = filename.split(".")[-1]
         filename = f"{instance.pk}-{uuid4().hex[0:7]}.{ext}"
@@ -16,6 +20,12 @@ class Journal(models.Model):
 
     id = models.CharField(primary_key=True, max_length=63)
     issue = models.CharField(max_length=255)
+    issue_type = models.CharField(
+        max_length=1,
+        choices=IssueType.choices,
+        default=IssueType.REGULAR,
+        verbose_name="Тип выпуска",
+    )
     year = models.IntegerField(blank=True, null=True)
     link = models.URLField()
     cover = ProcessedImageField(
@@ -34,6 +44,12 @@ class Journal(models.Model):
 
     def __str__(self):
         return " ".join(["Животноводство России - ", self.issue, str(self.year)])
+
+    def save(self, *args, **kwargs):
+        issue_type = self.id.split("-")[2]
+        if issue_type in ["PT", "SV", "SK"]:
+            self.issue_type = self.IssueType.SPECIAL
+        super(Journal, self).save(*args, **kwargs)
 
     def fill_cover_from_url(self):
         if self.cover_url and not self.cover:
