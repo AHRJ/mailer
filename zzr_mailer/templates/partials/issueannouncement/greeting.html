@@ -1,10 +1,17 @@
 {% load typograph %}
 {% load markdownify %}
+{% load static %}
 <mj-wrapper background-color="#fff">
   <mj-section>
     <mj-column>
       <mj-text font-size="22px" padding-bottom="8px" align="center" font-weight="bold" color="#444">Журнал «Животноводство России»</mj-text>
       <mj-text font-size="18px" align="center" font-weight="bold" color="#866">{{ issueannouncementletter.journal.issue }} {{ issueannouncementletter.journal.year }}</mj-text>
+    </mj-column>
+  </mj-section>
+
+  <mj-section padding-bottom="0">
+    <mj-column width="15%" padding="0">
+      <mj-image border-radius="8px" href="https://zzr.ru" src="{% static 'images/issue_announcement/photo.jpeg' %}" />
     </mj-column>
   </mj-section>
 
