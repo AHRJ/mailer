@@ -371,11 +371,7 @@ class PySendPulse:
         @return: dictionary with response message
         """
         logger.info("Function call: get_list_of_addressbooks")
-        return self.__handle_result(
-            self.__send_request(
-                "addressbooks", "GET", {"limit": limit or 0, "offset": offset or 0}
-            )
-        )
+        return self.__handle_result(self.__send_request("addressbooks", "GET"))
 
     def get_addressbook_info(self, id):
         """Get information about addressbook
