@@ -11,7 +11,6 @@ from .abstract_admin import AbstractLetterAdmin
 class IssueDownloadLetterAdmin(AbstractLetterAdmin):
 
     fields = (
-        "title",
         "journal",
         "send_date",
         "addressbooks",

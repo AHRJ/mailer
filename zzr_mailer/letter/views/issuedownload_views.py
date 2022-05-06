@@ -11,9 +11,14 @@ class IssueDownloadLetterDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(IssueDownloadLetterDetailView, self).get_context_data(**kwargs)
-        context["additional_journals"] = Journal.objects.filter(
-            year=self.object.journal.year
-        ).exclude(pk=self.object.journal.pk)
+
+        if self.object.journal.issue_type == Journal.IssueType.REGULAR:
+            context["additional_journals"] = (
+                Journal.objects.filter(year=self.object.journal.year)
+                .filter(issue_type=Journal.IssueType.REGULAR)
+                .exclude(pk=self.object.journal.pk)
+            )
+
         return context
 
 
@@ -24,9 +29,14 @@ class IssueDownloadLetterCreateCampaignView(AbstractCreateCampaignView):
         context = super(IssueDownloadLetterCreateCampaignView, self).get_context_data(
             **kwargs
         )
-        context["additional_journals"] = Journal.objects.filter(
-            year=self.object.journal.year
-        ).exclude(pk=self.object.journal.pk)
+
+        if self.object.journal.issue_type == Journal.IssueType.REGULAR:
+            context["additional_journals"] = (
+                Journal.objects.filter(year=self.object.journal.year)
+                .filter(issue_type=Journal.IssueType.REGULAR)
+                .exclude(pk=self.object.journal.pk)
+            )
+
         return context
 
 

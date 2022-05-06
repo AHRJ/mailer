@@ -18,6 +18,13 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(Journal)
 class JournalAdmin(admin.ModelAdmin):
+    def is_pdf_uploaded(obj):
+        return True if obj.pdf else False
+
+    is_pdf_uploaded.short_description = "PDF"
+    is_pdf_uploaded.boolean = True
+
+    list_display = ("issue", "year", is_pdf_uploaded)
     ordering = ("-created",)
     exclude = ("issue_type",)
 

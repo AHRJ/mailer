@@ -13,3 +13,8 @@ class IssueDownloadLetter(Letter):
     class Meta:
         verbose_name = "Выпуск журнала подписчикам"
         verbose_name_plural = "Выпуски журнала подписчикам"
+
+    def save(self, *args, **kwargs):
+        title = f"Ваш PDF журнала «Животноводство России». {self.journal.issue} {self.journal.year}"
+        self.title = title
+        super().save(*args, **kwargs)
