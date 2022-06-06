@@ -8,7 +8,7 @@
   {% for article in issueannouncementletter.articles_long_sorted %}
 
     {% if not forloop.counter|divisibleby:2 %}
-       <mj-section padding-top="0" padding-bottom="0">
+       <mj-section>
     {% endif %}
 
     {% include 'partials/issueannouncement/article-card-img.html'%}
@@ -26,6 +26,10 @@
     {% autoescape off %}
     {{ issueannouncementletter.advertisement.body }}
     {% endautoescape %}
+    {% endif %}
+
+    {% if forloop.counter == 4 and issueannouncementletter.advertisement_banner %}
+    {% include 'partials/common/advertisement_banner.html' with banner=issueannouncementletter.advertisement_banner %}
     {% endif %}
 
   {% endfor %}

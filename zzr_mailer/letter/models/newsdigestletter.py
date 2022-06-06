@@ -1,6 +1,6 @@
 from django.db import models
 
-from zzr_mailer.content.models import Advertisement, News
+from zzr_mailer.content.models import Advertisement, AdvertisementBanner, News
 
 from .letter import Letter
 
@@ -20,6 +20,14 @@ class NewsDigestLetter(Letter):
     advertisement = models.ForeignKey(
         Advertisement,
         verbose_name="Рекламный блок",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
+
+    advertisement_banner = models.ForeignKey(
+        AdvertisementBanner,
+        verbose_name="Рекламный баннер",
         on_delete=models.CASCADE,
         blank=True,
         null=True,

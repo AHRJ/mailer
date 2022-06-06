@@ -14,6 +14,12 @@
   {% endautoescape %}
   {% endif %}
 
+  {% if forloop.counter == 3 and newsdigestletter.advertisement_banner %}
+  {% include 'partials/common/divider.html' %}
+  {% include 'partials/common/advertisement_banner.html' with banner=newsdigestletter.advertisement_banner %}
+  {% endif %}
+
+
   {% if not forloop.last %}
   {% include 'partials/common/divider.html' %}
   {% endif %}

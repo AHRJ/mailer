@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Advertisement, Article, Journal, News
+from .models import Advertisement, AdvertisementBanner, Article, Journal, News
 
 
 @admin.register(News)
@@ -31,4 +31,9 @@ class JournalAdmin(admin.ModelAdmin):
 
 @admin.register(Advertisement)
 class AdvertisementAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(AdvertisementBanner)
+class AdvertisementBannerAdmin(admin.ModelAdmin):
     pass

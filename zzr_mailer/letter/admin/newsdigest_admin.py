@@ -30,6 +30,7 @@ class NewsDigestLetterAdmin(AbstractLetterAdmin):
         "title",
         "subtitle",
         "advertisement",
+        "advertisement_banner",
         "send_date",
         "addressbooks",
     )

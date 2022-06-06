@@ -42,6 +42,7 @@ class IssueAnnouncementLetterAdmin(AbstractLetterAdmin):
         "title",
         "greeting",
         "advertisement",
+        "advertisement_banner",
         "send_date",
         "addressbooks",
     )
