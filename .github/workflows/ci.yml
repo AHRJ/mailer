@@ -11,11 +11,11 @@ env:
 
 on:
   pull_request:
-    branches: [ "master", "main" ]
+    branches: [ "master", "main", "dev" ]
     paths-ignore: [ "docs/**" ]
 
   push:
-    branches: [ "master", "main" ]
+    branches: [ "master", "main", "dev" ]
     paths-ignore: [ "docs/**" ]
 
 
@@ -35,7 +35,7 @@ jobs:
       # Run all pre-commit hooks on all the files.
       # Getting only staged files can be tricky in case a new PR is opened
       # since the action is run on a branch in detached head state
-      - name: Install and Run Pre-commit 
+      - name: Install and Run Pre-commit
         uses: pre-commit/action@v2.0.3
 
   # With no caching at all the entire ci process takes 4m 30s to complete!
@@ -58,6 +58,12 @@ jobs:
 
       - name: Checkout Code Repository
         uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+      - run: npm i
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
