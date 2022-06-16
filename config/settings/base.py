@@ -312,15 +312,8 @@ MARKDOWNIFY = {
 
 # Django-MJML
 # ------------------------------------------------------------------------------
-MJML_BACKEND_MODE = "httpserver"
-MJML_APP_ID = env.str("DJANGO_MJML_APP_ID")
-MJML_SECRET_KEY = env.str("DJANGO_MJML_SECRET_KEY")
-MJML_HTTPSERVERS = [
-    {
-        "URL": "https://api.mjml.io/v1/render",
-        "HTTP_AUTH": (MJML_APP_ID, MJML_SECRET_KEY),
-    }
-]
+MJML_BACKEND_MODE = "cmd"
+MJML_EXEC_CMD = "node_modules/.bin/mjml"
 
 # Django-htmlmin
 # ------------------------------------------------------------------------------
