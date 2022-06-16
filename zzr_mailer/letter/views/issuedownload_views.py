@@ -17,6 +17,7 @@ class IssueDownloadLetterDetailView(DetailView):
                 Journal.objects.filter(year=self.object.journal.year)
                 .filter(issue_type=Journal.IssueType.REGULAR)
                 .exclude(pk=self.object.journal.pk)
+                .order_by("id")
             )
 
         return context
@@ -35,6 +36,7 @@ class IssueDownloadLetterCreateCampaignView(AbstractCreateCampaignView):
                 Journal.objects.filter(year=self.object.journal.year)
                 .filter(issue_type=Journal.IssueType.REGULAR)
                 .exclude(pk=self.object.journal.pk)
+                .order_by("id")
             )
 
         return context
