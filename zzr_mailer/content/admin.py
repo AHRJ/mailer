@@ -31,16 +31,21 @@ class ArticleAdmin(DjangoObjectActions, admin.ModelAdmin):
 
 
 @admin.register(Journal)
-class JournalAdmin(admin.ModelAdmin):
+class JournalAdmin(DjangoObjectActions, admin.ModelAdmin):
     def is_pdf_uploaded(obj):
         return True if obj.pdf else False
 
+    def load_from_zzr(modeladmin, request, queryset):
+        Journal.load_from(Zzr)
+
     is_pdf_uploaded.short_description = "PDF"
     is_pdf_uploaded.boolean = True
+    load_from_zzr.label = "Загрузить из zzr.ru"
 
     list_display = ("issue", "year", is_pdf_uploaded)
     ordering = ("-created",)
     exclude = ("issue_type",)
+    changelist_actions = ("load_from_zzr",)
 
 
 @admin.register(Advertisement)
