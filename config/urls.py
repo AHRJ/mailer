@@ -3,8 +3,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    path("", RedirectView.as_view(pattern_name="admin:index")),
     path(
         "letter/",
         include("zzr_mailer.letter.urls", namespace="letter"),
