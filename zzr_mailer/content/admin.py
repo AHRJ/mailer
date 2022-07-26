@@ -20,9 +20,14 @@ class NewsAdmin(DjangoObjectActions, admin.ModelAdmin):
 
 
 @admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
+class ArticleAdmin(DjangoObjectActions, admin.ModelAdmin):
+    def load_from_zzr(modeladmin, request, queryset):
+        Article.load_from(Zzr)
+
+    load_from_zzr.label = "Загрузить из zzr.ru"
     list_display = ("id", "title")
     ordering = ("-created",)
+    changelist_actions = ("load_from_zzr",)
 
 
 @admin.register(Journal)
