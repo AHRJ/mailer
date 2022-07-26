@@ -13,7 +13,7 @@ class NewsAdmin(DjangoObjectActions, admin.ModelAdmin):
 
     load_from_zzr.label = "Загрузить из zzr.ru"
 
-    list_display = ("pub_date", "title")
+    list_display = ("title", "pub_date")
     exclude = ("uuid", "image_url")
     ordering = ("-pub_date",)
     changelist_actions = ("load_from_zzr",)
