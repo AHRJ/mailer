@@ -25,7 +25,7 @@ class ArticleAdmin(DjangoObjectActions, admin.ModelAdmin):
         Article.load_from(Zzr)
 
     load_from_zzr.label = "Загрузить из zzr.ru"
-    list_display = ("id", "title")
+    list_display = ("title", "id")
     ordering = ("-created",)
     changelist_actions = ("load_from_zzr",)
 
