@@ -1,13 +1,22 @@
 from django.contrib import admin
+from django_object_actions import DjangoObjectActions
+
+from zzr_mailer.content.news_sources import Zzr
 
 from .models import Advertisement, AdvertisementBanner, Article, Journal, News
 
 
 @admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
+class NewsAdmin(DjangoObjectActions, admin.ModelAdmin):
+    def load_from_zzr(modeladmin, request, queryset):
+        News.load_from(Zzr)
+
+    load_from_zzr.label = "Загрузить из zzr.ru"
+
     list_display = ("pub_date", "title")
     exclude = ("uuid", "image_url")
     ordering = ("-pub_date",)
+    changelist_actions = ("load_from_zzr",)
 
 
 @admin.register(Article)
