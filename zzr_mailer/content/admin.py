@@ -28,6 +28,7 @@ class ArticleAdmin(DjangoObjectActions, admin.ModelAdmin):
     list_display = ("title", "id")
     ordering = ("-created",)
     changelist_actions = ("load_from_zzr",)
+    readonly_fields = ["id", "doi", "year", "issue"]
 
 
 @admin.register(Journal)
