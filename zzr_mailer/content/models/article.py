@@ -7,23 +7,26 @@ from zzr_mailer.utils.utils import get_img_from_url, trim
 
 class Article(models.Model):
     id = models.CharField(primary_key=True, max_length=63)
-    title = models.CharField(max_length=255)
-    authors = models.CharField(max_length=255, blank=True, null=True)
-    teaser = models.TextField()
-    link = models.URLField()
+    title = models.CharField("Заголовок", max_length=255)
+    authors = models.CharField("Авторы", max_length=255, blank=True, null=True)
+    teaser = models.TextField("Анонс")
+    link = models.URLField("Ссылка")
     header_photo = ProcessedImageField(
         upload_to="img/article/thumbnails",
         processors=[ResizeToFill(600, 360)],
         format="JPEG",
         options={"quality": 90},
+        verbose_name="Заглавное изображение",
     )
     header_photo_url = models.URLField(blank=True, null=True)
-    year = models.IntegerField(blank=True, null=True)
-    issue = models.CharField(max_length=127, blank=True, null=True)
-    rubric = models.CharField(max_length=127, blank=True, null=True)
-    doi = models.CharField(max_length=127, blank=True, null=True)
-    partner = models.CharField(max_length=127, blank=True, null=True)
-    created = models.DateField(null=True)
+    year = models.IntegerField("Год публикации", blank=True, null=True)
+    issue = models.CharField(
+        "Номер выпуска / Код спецвыпуска", max_length=127, blank=True, null=True
+    )
+    rubric = models.CharField("Рубрика", max_length=127, blank=True, null=True)
+    doi = models.CharField("DOI", max_length=127, blank=True, null=True)
+    partner = models.CharField("Партнер", max_length=127, blank=True, null=True)
+    created = models.DateField("Дата публикации", null=True)
 
     class Meta:
         verbose_name = "Статья"

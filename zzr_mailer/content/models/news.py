@@ -11,18 +11,19 @@ from zzr_mailer.utils.utils import get_img_from_url, trim
 
 class News(TimeStampedModel):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    title = models.CharField(max_length=255)
-    teaser = models.TextField()
-    link = models.URLField()
+    title = models.CharField("Заголовок", max_length=255)
+    teaser = models.TextField("Анонс")
+    link = models.URLField("Ссылка")
     image = ProcessedImageField(
         upload_to="img/news/thumbnails",
         processors=[ResizeToFill(300, 180)],
         format="JPEG",
         options={"quality": 90},
         blank=True,
+        verbose_name="Изображение",
     )
-    image_url = models.URLField(blank=True, null=True)
-    pub_date = models.DateTimeField(default=timezone.now)
+    image_url = models.URLField("Ссылка на изображение", blank=True, null=True)
+    pub_date = models.DateTimeField("Дата публикации", default=timezone.now)
 
     class Meta:
         verbose_name = "Новость"

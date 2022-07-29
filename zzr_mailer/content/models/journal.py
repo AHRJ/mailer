@@ -19,23 +19,24 @@ class Journal(models.Model):
         return os.path.join("files/journal/pdf", filename)
 
     id = models.CharField(primary_key=True, max_length=63)
-    issue = models.CharField(max_length=255)
+    issue = models.CharField("Номер выпуска / Код спецвыпуска", max_length=255)
     issue_type = models.CharField(
         max_length=1,
         choices=IssueType.choices,
         default=IssueType.REGULAR,
         verbose_name="Тип выпуска",
     )
-    year = models.IntegerField(blank=True, null=True)
-    link = models.URLField()
+    year = models.IntegerField("Год", blank=True, null=True)
+    link = models.URLField("Ссылка")
     cover = ProcessedImageField(
         upload_to="img/journal/thumbnails",
         processors=[ResizeToFill(320, 442)],
         format="JPEG",
         options={"quality": 90},
+        verbose_name="Обложка",
     )
     cover_url = models.URLField(blank=True, null=True)
-    created = models.DateField(null=True)
+    created = models.DateField("Дата размещения", null=True)
     pdf = models.FileField(verbose_name="PDF", upload_to=content_file_name, blank=True)
 
     class Meta:

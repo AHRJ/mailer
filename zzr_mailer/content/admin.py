@@ -29,6 +29,7 @@ class ArticleAdmin(DjangoObjectActions, admin.ModelAdmin):
     ordering = ("-created",)
     changelist_actions = ("load_from_zzr",)
     readonly_fields = ["id", "doi", "year", "issue"]
+    exclude = ("header_photo_url",)
 
 
 @admin.register(Journal)
@@ -45,7 +46,7 @@ class JournalAdmin(DjangoObjectActions, admin.ModelAdmin):
 
     list_display = ("issue", "year", is_pdf_uploaded)
     ordering = ("-created",)
-    exclude = ("issue_type",)
+    exclude = ("issue_type", "cover_url")
     changelist_actions = ("load_from_zzr",)
 
 
