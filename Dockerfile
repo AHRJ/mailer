@@ -3,7 +3,7 @@ ARG PYTHON_VERSION=3.9-slim-buster
 
 
 # define an alias for the specfic python version used in this file.
-FROM nikolaik/python-nodejs:python3.9-nodejs16-slim as python
+FROM nikolaik/python-nodejs:python3.9-nodejs18-slim as python
 
 # Python build stage
 FROM python as python-build-stage
