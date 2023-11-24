@@ -2,10 +2,9 @@ from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.generic import DetailView
-from django_q.tasks import async_task
 
 from zzr_mailer.letter.models import Campaign
-from zzr_mailer.utils.sendpulse import SPSender
+from zzr_mailer.utils.dashamail import Dashamail
 
 from ..models import Letter
 
@@ -33,20 +32,26 @@ class AbstractCreateCampaignView(DetailView):
             f"letter/{self.model.letter_type}_detail.html", context=context
         )
         letter_send_date = self.object.send_date
-        letter_addresbook_ids = [entry.id for entry in self.object.addressbooks.all()]
+        letter_addresbook_ids = [
+            addressbook.id for addressbook in self.object.addressbooks.all()
+        ]
+        letter_uuid = self.object.uuid
 
-        async_task(
-            SPSender.add_campaigns,
-            hook=AbstractCreateCampaignView.assign_campaigns,
-            from_email="info@zzr.ru",
-            from_name="ИД Животноводство",
-            subject=letter_title,
-            body=letter_body,
-            send_date=letter_send_date,
-            addressbook_ids=letter_addresbook_ids,
-            letter=self.object,
-        )
-        self.object.status = Letter.Status.PENDING
+        try:
+            campaign_id = Dashamail.add_campaign(
+                from_email="info@zzr.ru",
+                from_name="ИД Животноводство",
+                subject=letter_title,
+                html=letter_body,
+                send_datetime=letter_send_date,
+                list_ids=letter_addresbook_ids,
+                uuid=letter_uuid,
+            )
+            self.object.campaign_id = campaign_id
+            self.object.status = Letter.Status.PLANNED
+        except:  # noqa
+            self.object.status = Letter.Status.ERROR
+
         self.object.save()
 
         return HttpResponseRedirect(
@@ -57,9 +62,8 @@ class AbstractCreateCampaignView(DetailView):
 class AbstractCancelCampaignView(DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        letter_campaign_ids = [entry.id for entry in self.object.campaigns.all()]
-        SPSender.cancel_campaigns(letter_campaign_ids)
-        self.object.campaigns.all().delete()
+        Dashamail.cancel_campaign(self.object.campaign_id)
+        self.object.campaign_id = None
         self.object.status = Letter.Status.UNPLANNED
         self.object.save()
         return HttpResponseRedirect(
