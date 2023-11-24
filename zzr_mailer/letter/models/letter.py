@@ -1,3 +1,5 @@
+import uuid
+
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -22,8 +24,10 @@ class Letter(TimeStampedModel):
         EXPIRED = "EXP", "Просрочена"
         ERROR = "ERR", "Ошибка"
 
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.CharField("Тема письма", max_length=255, default="🐄 ")
     campaigns = models.ManyToManyField(Campaign, blank=True)
+    campaign_id = models.PositiveIntegerField(null=True, blank=True)
     addressbooks = models.ManyToManyField(
         AddressBook,
         blank=True,
@@ -48,13 +52,13 @@ class Letter(TimeStampedModel):
     def update_status(self):
         if self.status == Letter.Status.PENDING or self.status == Letter.Status.ERROR:
             pass
-        elif self.send_date > timezone.now() and not self.campaigns.exists():
+        elif self.send_date > timezone.now() and not self.campaign_id:
             self.status = Letter.Status.UNPLANNED
-        elif self.send_date > timezone.now() and self.campaigns.exists():
+        elif self.send_date > timezone.now() and self.campaign_id:
             self.status = Letter.Status.PLANNED
-        elif self.send_date < timezone.now() and self.campaigns.exists():
+        elif self.send_date < timezone.now() and self.campaign_id:
             self.status = Letter.Status.SENT
-        elif self.send_date < timezone.now() and not self.campaigns.exists():
+        elif self.send_date < timezone.now() and not self.campaign_id:
             self.status = Letter.Status.EXPIRED
         self.save()
 

@@ -1,6 +1,6 @@
 from django.db import models
 
-from zzr_mailer.utils.sendpulse import SPSender
+from zzr_mailer.utils.dashamail import Dashamail
 
 
 class AddressBook(models.Model):
@@ -16,15 +16,15 @@ class AddressBook(models.Model):
         verbose_name_plural = "Адресные книги"
 
     @staticmethod
-    def load_from_sendpulse():
+    def load_from_dashamail():
         try:
-            addressbooks_from_sendpulse = SPSender.get_list_of_addressbooks()
+            addressbooks_from_dashamail = Dashamail.get_list_of_addressbooks()
             addressbooks = [
                 AddressBook(id=addressbook["id"], name=addressbook["name"])
-                for addressbook in addressbooks_from_sendpulse
+                for addressbook in addressbooks_from_dashamail
             ]
             addressbook_ids = [
-                addressbook["id"] for addressbook in addressbooks_from_sendpulse
+                addressbook["id"] for addressbook in addressbooks_from_dashamail
             ]
         except:  # noqa
             addressbooks = []
@@ -32,4 +32,4 @@ class AddressBook(models.Model):
         AddressBook.objects.bulk_create(addressbooks, ignore_conflicts=True)
         AddressBook.objects.exclude(
             id__in=addressbook_ids
-        ).delete()  # rm nonexistent addressbooks
+        ).delete()  # rm nonexistent adressbooks

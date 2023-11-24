@@ -6,9 +6,9 @@ from ..models import AddressBook
 
 @admin.register(AddressBook)
 class AddressBookAdmin(DjangoObjectActions, admin.ModelAdmin):
-    def load_from_sendpulse(modeladmin, request, queryset):
-        AddressBook.load_from_sendpulse()
+    def load_from_dashamail(modeladmin, request, queryset):
+        AddressBook.load_from_dashamail()
 
-    load_from_sendpulse.label = "Загрузить из Sendpulse"
+    load_from_dashamail.label = "Загрузить из Dashamail"
 
-    changelist_actions = ("load_from_sendpulse",)
+    changelist_actions = ("load_from_dashamail",)
