@@ -2,7 +2,7 @@
 
   <mj-column width="48%">
     <mj-image href="{{ article.link }}" fluid-on-mobile="true" border="1px solid #ddd" border-radius="5px" align="left"
-      src="{% if article.header_photo %} {{ article.header_photo.url }} {% endif %}" />
+      src="{% if article.header_photo %}{{ article.header_photo.url }}{% endif %}" />
 	    <mj-text padding-top="15px" font-weight="bold" font-size="18px" color="#444"><a class="link-color-inherit"
                                                                                       href="{{ article.link }}">{{ article.title | typograph }}</a></mj-text>
     <mj-text padding-top="15px" font-size="15px" color="#555" line-height="1.2">{{ article.teaser }}</mj-text>
