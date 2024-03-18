@@ -1,5 +1,9 @@
+import logging
+
 import requests
 from django.conf import settings
+
+logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
 
 
 class DashamailAPIWrapper:
@@ -11,6 +15,7 @@ class DashamailAPIWrapper:
         r = requests.get(
             f"https://api.dashamail.ru/?method=lists.get&api_key={self.API_KEY}"
         )
+        logging.info(f"Get addressbooks list from Dashamail: {r.text}")
         return r.json()["response"]["data"]
 
     def add_campaign(
@@ -36,6 +41,7 @@ class DashamailAPIWrapper:
             "html": html,
         }
         r1 = requests.post("https://api.dashamail.ru/", data=payload)
+        logging.info(f"Plan a campaign with Dashamail: {r1.text}")
 
         campaign_id = r1.json()["response"]["data"]["campaign_id"]
 
@@ -46,7 +52,8 @@ class DashamailAPIWrapper:
             "status": "SCHEDULE",
             "delivery_time": send_datetime,
         }
-        requests.post("https://api.dashamail.ru/", data=payload)
+        r2 = requests.post("https://api.dashamail.ru/", data=payload)
+        logging.info(f"Plan a campaign with Dashamail: {r2.text}")
         return campaign_id
 
     def cancel_campaign(self, campaign_id):
@@ -57,6 +64,7 @@ class DashamailAPIWrapper:
         }
         r = requests.post("https://api.dashamail.ru/", data=payload)
 
+        logging.info(f"Cancel campaign with Dashamail: {r.text}")
         return r.json()
 
 
